@@ -3,4 +3,16 @@ beautifulsoup4
 selenium
 scrapy
 fake-useragent
-lxml 
+lxml
+pandas
+numpy
+matplotlib
+seaborn
+click
+pytest
+pyyaml
+openpyxl
+tabulate
+Jinja2
+plotly
+schedule 
