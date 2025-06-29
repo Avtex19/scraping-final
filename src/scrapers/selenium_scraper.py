@@ -1,6 +1,7 @@
 import time
-import logging
 import os
+import json
+
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -11,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from src.utils.logger import setup_logger
+from src.utils.multiproc_logging import setup_worker_logger
 
 
 class EbayScraper:
@@ -50,7 +52,7 @@ class EbayScraper:
         self.driver = webdriver.Chrome(service=service, options=options)
         self.wait = WebDriverWait(self.driver, self.timeout)
 
-        self.logger.info("✅ WebDriver initialized.")
+        self.logger.info(" WebDriver initialized.")
 
     def _extract_item_data(self, item, page_num):
         try:
@@ -110,8 +112,8 @@ class EbayScraper:
         self.logger.debug(f"Found {len(items)} <li.s-item> elements on page {page_num}")
 
         if not items:
-            print(f"⚠️ No items found on page {page_num}")
-            self.logger.warning(f"⚠️ No items found on page {page_num}")
+            print(f"️ No items found on page {page_num}")
+            self.logger.warning(f"️ No items found on page {page_num}")
             return []
 
         results = []
@@ -122,22 +124,13 @@ class EbayScraper:
                     item_data['name'] = "Untitled"
                 results.append(item_data)
 
-        print(f"✅ Extracted {len(results)} items from page {page_num}")
-        self.logger.info(f"✅ Extracted {len(results)} valid items from page {page_num}")
+        print(f" Extracted {len(results)} items from page {page_num}")
+        self.logger.info(f" Extracted {len(results)} valid items from page {page_num}")
         return results
 
+
+
     def scrape(self, search_term, max_pages=3, delay_between_pages=2):
-        """
-        Scrape eBay for a given search term.
-
-        Args:
-            search_term (str): Term to search for on eBay
-            max_pages (int): Maximum number of pages to scrape
-            delay_between_pages (int): Delay in seconds between page requests
-
-        Returns:
-            list: List of scraped items
-        """
         if not self.driver:
             self._setup_driver()
 
@@ -155,6 +148,17 @@ class EbayScraper:
             self.close()
 
         self.logger.info(f" Finished scraping '{search_term}'. Total items: {len(results)}")
+
+        # Ensure logs dir exists (optional)
+        os.makedirs('logs', exist_ok=True)
+
+        # Save results as JSON
+        json_path = f'logs/ebay_{search_term.replace(" ", "_")}_results.json'
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(results, f, ensure_ascii=False, indent=2)
+
+        self.logger.info(f" Saved scraped data to {json_path}")
+
         return results
 
     def scrape_multiple_terms(self, search_terms, max_pages=3, delay_between_pages=2):
@@ -197,3 +201,37 @@ class EbayScraper:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
+
+
+
+def scrape_term_process(term, chromedriver_path, timeout, headless, max_pages=3, log_queue=None):
+    """
+    Wrapper function for multiprocessing. Scrapes a search term with optional logging queue.
+    Returns JSON string.
+
+    Args:
+        term (str): Search keyword.
+        chromedriver_path (str): Path to ChromeDriver.
+        timeout (int): WebDriver timeout.
+        headless (bool): Headless mode toggle.
+        max_pages (int): Max pages to scrape.
+        log_queue (multiprocessing.Queue, optional): Queue for multiprocessing-safe logging.
+
+    Returns:
+        str: JSON string of scraped results.
+    """
+    if log_queue:
+        setup_worker_logger(log_queue)
+
+    scraper = EbayScraper(
+        chromedriver_path=chromedriver_path,
+        timeout=timeout,
+        headless=headless
+    )
+    results = scraper.scrape(term, max_pages=max_pages)
+
+    results_json = json.dumps(results, indent=2)
+    return results_json
+
+
