@@ -1,0 +1,20 @@
+2025-06-29 15:45:10,541 - INFO - src.scrapers.static_scraper - 🚀 Starting static scraping for source: BooksToScrape
+2025-06-29 15:45:10,541 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 1: http://books.toscrape.com/catalogue/page-1.html
+2025-06-29 15:45:14,055 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 2: http://books.toscrape.com/catalogue/page-2.html
+2025-06-29 15:45:16,500 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 3: http://books.toscrape.com/catalogue/page-3.html
+2025-06-29 15:45:19,093 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-29 15:49:49,485 - INFO - src.scrapers.static_scraper - 🚀 Starting static scraping for source: BooksToScrape
+2025-06-29 15:49:49,485 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 1: http://books.toscrape.com/catalogue/page-1.html
+2025-06-29 15:49:51,460 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 2: http://books.toscrape.com/catalogue/page-2.html
+2025-06-29 15:49:53,114 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 3: http://books.toscrape.com/catalogue/page-3.html
+2025-06-29 15:49:55,035 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-29 15:50:33,625 - INFO - src.scrapers.static_scraper - 🚀 Starting static scraping for source: BooksToScrape
+2025-06-29 15:50:33,625 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 1: http://books.toscrape.com/catalogue/page-1.html
+2025-06-29 15:50:36,226 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 2: http://books.toscrape.com/catalogue/page-2.html
+2025-06-29 15:50:38,495 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 3: http://books.toscrape.com/catalogue/page-3.html
+2025-06-29 15:50:40,340 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-29 15:53:33,402 - INFO - src.scrapers.static_scraper - 🚀 Starting static scraping for source: BooksToScrape
+2025-06-29 15:53:33,402 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 1: http://books.toscrape.com/catalogue/page-1.html
+2025-06-29 15:53:36,681 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 2: http://books.toscrape.com/catalogue/page-2.html
+2025-06-29 15:53:39,201 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 3: http://books.toscrape.com/catalogue/page-3.html
+2025-06-29 15:53:41,733 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
