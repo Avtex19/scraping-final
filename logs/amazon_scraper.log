@@ -8,3 +8,134 @@
 2025-06-29 17:38:34,174 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
 2025-06-29 17:38:34,178 - INFO - amazon_products_logger - ✅ Extracted 0 valid products for 'laptop'
 2025-06-29 17:38:34,210 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 19:56:01,214 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 19:56:01,219 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 27
+2025-06-29 19:56:01,422 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 19:56:01,432 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for laptop products
+2025-06-29 19:56:03,319 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 19:56:03,351 - INFO - amazon_products_logger - ✅ Extracted 0 valid products for 'laptop'
+2025-06-29 19:56:03,398 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 19:56:22,826 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 19:56:22,831 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 28
+2025-06-29 19:56:22,867 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 19:56:22,867 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 
+2025-06-29 20:03:51,825 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:03:51,830 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 29
+2025-06-29 20:03:52,016 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:03:52,021 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for laptop category
+2025-06-29 20:03:54,033 - INFO - amazon_products_logger - 📋 Parsing category results for 'laptop' - Page 1
+2025-06-29 20:03:54,033 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:03:54,033 - INFO - amazon_products_logger - 📏 Response length: 1632128 characters
+2025-06-29 20:03:54,065 - INFO - amazon_products_logger - 🔍 Found 0 valid product containers
+2025-06-29 20:03:54,065 - INFO - amazon_products_logger - ✅ Extracted 0 valid products for 'laptop'
+2025-06-29 20:03:54,098 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:05:03,465 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:05:03,470 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 30
+2025-06-29 20:05:03,655 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:05:03,660 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for laptop category
+2025-06-29 20:05:05,763 - INFO - amazon_products_logger - 📋 Parsing category results for 'laptop' - Page 1
+2025-06-29 20:05:05,763 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:05:05,763 - INFO - amazon_products_logger - 📏 Response length: 1636213 characters
+2025-06-29 20:05:05,795 - INFO - amazon_products_logger - 🔍 Found 0 valid product containers
+2025-06-29 20:05:05,796 - INFO - amazon_products_logger - ✅ Extracted 0 valid products for 'laptop'
+2025-06-29 20:05:05,830 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:05:17,018 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:05:17,023 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 31
+2025-06-29 20:05:17,202 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:05:17,208 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for laptop category
+2025-06-29 20:05:19,638 - INFO - amazon_products_logger - 📋 Parsing category results for 'laptop' - Page 1
+2025-06-29 20:05:19,638 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:05:19,638 - INFO - amazon_products_logger - 📏 Response length: 1630905 characters
+2025-06-29 20:05:19,670 - INFO - amazon_products_logger - 🔍 Found 0 valid product containers
+2025-06-29 20:05:19,670 - INFO - amazon_products_logger - ✅ Extracted 0 valid products for 'laptop'
+2025-06-29 20:05:19,702 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:06:20,817 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:06:20,822 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 32
+2025-06-29 20:06:21,007 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:06:21,012 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:06:23,379 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:06:23,379 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:06:23,380 - INFO - amazon_products_logger - 📏 Response length: 1512368 characters
+2025-06-29 20:06:23,405 - INFO - amazon_products_logger - 🔍 Found 22 search result containers
+2025-06-29 20:06:23,416 - INFO - amazon_products_logger - ✅ Extracted 20 valid products for 'laptop'
+2025-06-29 20:06:23,448 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:09:50,134 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:09:50,138 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 33
+2025-06-29 20:09:50,346 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:09:50,351 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:09:53,138 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:09:53,138 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:09:53,138 - INFO - amazon_products_logger - 📏 Response length: 1691336 characters
+2025-06-29 20:09:53,164 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:09:53,172 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:09:53,205 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:10:00,017 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:10:00,023 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 34
+2025-06-29 20:10:00,198 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:10:00,203 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:10:02,555 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:10:02,556 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:10:02,556 - INFO - amazon_products_logger - 📏 Response length: 1690245 characters
+2025-06-29 20:10:02,583 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:10:02,592 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:10:02,644 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:11:36,813 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:11:36,818 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 35
+2025-06-29 20:11:37,004 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:11:37,010 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:11:39,234 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:11:39,234 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:11:39,234 - INFO - amazon_products_logger - 📏 Response length: 1552579 characters
+2025-06-29 20:11:39,259 - INFO - amazon_products_logger - 🔍 Found 22 search result containers
+2025-06-29 20:11:39,268 - INFO - amazon_products_logger - ✅ Extracted 22 valid products for 'laptop'
+2025-06-29 20:11:39,306 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:14:34,893 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:14:34,898 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 36
+2025-06-29 20:14:35,074 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:14:35,080 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:14:37,471 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:14:37,471 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:14:37,472 - INFO - amazon_products_logger - 📏 Response length: 1692921 characters
+2025-06-29 20:14:37,497 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:14:37,504 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:14:37,537 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:15:38,765 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:15:38,770 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 37
+2025-06-29 20:15:38,944 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:15:38,949 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:15:41,607 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:15:41,608 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:15:41,608 - INFO - amazon_products_logger - 📏 Response length: 1696623 characters
+2025-06-29 20:15:41,634 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:15:41,643 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:15:41,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:16:38,255 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:16:38,261 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 38
+2025-06-29 20:16:38,440 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:16:38,445 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:16:40,676 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:16:40,676 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:16:40,676 - INFO - amazon_products_logger - 📏 Response length: 1624942 characters
+2025-06-29 20:16:40,702 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:16:40,715 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:16:40,763 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
+2025-06-29 20:19:07,215 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:19:07,220 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 39
+2025-06-29 20:19:07,399 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:19:07,405 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:19:10,174 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:19:10,174 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:19:10,174 - INFO - amazon_products_logger - 📏 Response length: 1700104 characters
+2025-06-29 20:19:10,200 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:19:10,209 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:19:10,418 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Saved 21 Amazon products to database!
+2025-06-29 20:22:30,698 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 20:22:30,702 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 40
+2025-06-29 20:22:30,879 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 20:22:30,884 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-29 20:22:33,611 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 20:22:33,611 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-29 20:22:33,611 - INFO - amazon_products_logger - 📏 Response length: 1618319 characters
+2025-06-29 20:22:33,638 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
+2025-06-29 20:22:33,647 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-29 20:22:33,849 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Saved 21 Amazon products to database!
