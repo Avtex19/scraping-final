@@ -33,7 +33,7 @@ class EbayScraper:
         self.timeout = timeout
         self.driver = None
         self.wait = None
-        self.logger = setup_logger(__name__, log_file=log_file)  # ✅ centralized logger
+        self.logger = setup_logger(__name__, log_file=log_file)
 
     def _setup_driver(self):
         """Set up Chrome WebDriver with options."""
@@ -142,7 +142,7 @@ class EbayScraper:
             self._setup_driver()
 
         results = []
-        self.logger.info(f"🚀 Starting scrape for '{search_term}'")
+        self.logger.info(f" Starting scrape for '{search_term}'")
 
         try:
             for page_num in range(1, max_pages + 1):
@@ -150,11 +150,11 @@ class EbayScraper:
                 results.extend(page_results)
                 time.sleep(delay_between_pages)
         except Exception as e:
-            self.logger.exception(f"❌ Error during scraping '{search_term}': {e}")
+            self.logger.exception(f" Error during scraping '{search_term}': {e}")
         finally:
             self.close()
 
-        self.logger.info(f"🎯 Finished scraping '{search_term}'. Total items: {len(results)}")
+        self.logger.info(f" Finished scraping '{search_term}'. Total items: {len(results)}")
         return results
 
     def scrape_multiple_terms(self, search_terms, max_pages=3, delay_between_pages=2):
@@ -179,7 +179,7 @@ class EbayScraper:
                 result['search_term'] = term
 
             all_results.extend(term_results)
-            self.logger.info(f"✅ Completed scrape for '{term}': {len(term_results)} items")
+            self.logger.info(f" Completed scrape for '{term}': {len(term_results)} items")
             time.sleep(1)
 
         return all_results
@@ -190,7 +190,7 @@ class EbayScraper:
             self.driver.quit()
             self.driver = None
             self.wait = None
-            self.logger.info("🛑 WebDriver closed.")
+            self.logger.info(" WebDriver closed.")
 
     def __enter__(self):
         return self
