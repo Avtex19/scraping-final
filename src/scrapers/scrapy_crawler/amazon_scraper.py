@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import json
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
@@ -50,9 +51,12 @@ class AmazonScrapyRunner:
                 }
             }
             
-            # Clear global items before starting
-            global SCRAPED_ITEMS
-            SCRAPED_ITEMS.clear()
+            # Clear any existing temporary items file
+            items_file = 'temp_scraped_items.json'
+            try:
+                os.remove(items_file)
+            except FileNotFoundError:
+                pass
             
             # Create and configure the crawler process
             process = CrawlerProcess(settings)
@@ -78,15 +82,24 @@ class AmazonScrapyRunner:
     
     def _save_results_to_database(self, job_id):
         """Save scraped items to the database"""
-        global SCRAPED_ITEMS
+        # Read items from the temporary file created by pipeline
+        items_file = 'temp_scraped_items.json'
+        scraped_items = []
         
-        if not SCRAPED_ITEMS:
+        try:
+            with open(items_file, 'r', encoding='utf-8') as f:
+                scraped_items = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.logger.info(f"⚠️ No items file found or invalid JSON")
+            return []
+        
+        if not scraped_items:
             self.logger.info(f"⚠️ No items collected from Amazon")
             return []
         
         # Prepare items for database insertion
         products_to_insert = []
-        for item in SCRAPED_ITEMS:
+        for item in scraped_items:
             products_to_insert.append({
                 'name': item.get('name', 'Unknown'),
                 'price': item.get('price'),
@@ -94,7 +107,8 @@ class AmazonScrapyRunner:
                 'image': '',  # Amazon scraper doesn't extract images yet
                 'availability': item.get('availability', ''),
                 'scrape_time': item.get('scrape_time'),
-                'search_term': item.get('search_term', 'laptop')
+                'search_term': item.get('search_term', 'laptop'),
+                'source': item.get('source', 'Amazon')  # Preserve the source field
             })
         
         # Insert all products at once
@@ -105,11 +119,18 @@ class AmazonScrapyRunner:
             # Mark job as complete
             self.db.mark_job_complete(job_id)
             self.logger.info(f"🎉 Saved {saved_count} Amazon products to database!")
+            
+            # Clean up temporary file
+            try:
+                os.remove(items_file)
+            except FileNotFoundError:
+                pass
+                
         except Exception as e:
             self.logger.error(f"❌ Failed to save products to database: {e}")
             saved_count = 0
         
-        return SCRAPED_ITEMS
+        return scraped_items
 
 
 def run_amazon_scraper():

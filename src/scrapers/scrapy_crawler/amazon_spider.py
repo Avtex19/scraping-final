@@ -10,12 +10,13 @@ import logging
 import os
 import sys
 from fake_useragent import UserAgent
+from scrapy.utils.project import get_project_settings
+from src.utils.logger import setup_logger
 
 # Add src to path for imports
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 
 from src.data.database import Database
-from src.utils.logger import setup_logger
 
 
 class RotateUserAgentMiddleware:
@@ -47,6 +48,34 @@ class AmazonAntiBlockMiddleware:
 SCRAPED_ITEMS = []
 
 
+class CollectorPipeline:
+    """Pipeline to collect scraped items via file system"""
+    
+    def __init__(self):
+        self.items_file = 'temp_scraped_items.json'
+        # Clear any existing items
+        with open(self.items_file, 'w', encoding='utf-8') as f:
+            json.dump([], f)
+    
+    def process_item(self, item, spider):
+        # Load existing items
+        try:
+            with open(self.items_file, 'r', encoding='utf-8') as f:
+                items = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            items = []
+        
+        # Add new item
+        items.append(dict(item))
+        
+        # Save back to file
+        with open(self.items_file, 'w', encoding='utf-8') as f:
+            json.dump(items, f, ensure_ascii=False, indent=2)
+        
+        spider.custom_logger.debug(f"🔗 Pipeline collected item #{len(items)}: {item.get('name', 'Unknown')[:30]}...")
+        return item
+
+
 class AmazonProductSpider(scrapy.Spider):
     name = 'amazon_products'
     allowed_domains = ['amazon.com']
@@ -64,7 +93,10 @@ class AmazonProductSpider(scrapy.Spider):
         'AUTOTHROTTLE_MAX_DELAY': 10,
         'AUTOTHROTTLE_DEBUG': True,
         'DOWNLOAD_TIMEOUT': 30,
-        'LOG_LEVEL': 'WARNING'
+        'LOG_LEVEL': 'WARNING',
+        'ITEM_PIPELINES': {
+            'src.scrapers.scrapy_crawler.amazon_spider.CollectorPipeline': 300,
+        }
     }
     
     def __init__(self, search_terms=None, max_pages=1, job_id=None, *args, **kwargs):
@@ -78,19 +110,24 @@ class AmazonProductSpider(scrapy.Spider):
         SCRAPED_ITEMS = []
     
     def start_requests(self):
-        """Generate initial requests for Amazon laptop page"""
-        # Use the specific laptop URL you provided
-        url = "https://www.amazon.com/Notebooks-Laptop-Computers/b?ie=UTF8&node=565108"
+        """Generate initial requests for Amazon search"""
+        # Use the search URL that works (from test script)
+        url = "https://www.amazon.com/s?k=laptop"
         
         headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Encoding': 'gzip, deflate, br',
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0',
         }
         
-        self.custom_logger.info(f"🚀 Starting Amazon scraper for laptop products")
+        self.custom_logger.info(f"🚀 Starting Amazon scraper for search")
         
         yield scrapy.Request(
             url=url,
@@ -105,8 +142,10 @@ class AmazonProductSpider(scrapy.Spider):
         page = response.meta.get('page', 1)
         
         self.custom_logger.info(f"📋 Parsing search results for '{search_term}' - Page {page}")
+        self.custom_logger.info(f"📄 Response status: {response.status}")
+        self.custom_logger.info(f"📏 Response length: {len(response.text)} characters")
         
-        # Extract products using our proven selectors
+        # Extract products using the working selectors
         products = self.extract_products(response, search_term)
         
         # Store items in global variable
@@ -120,12 +159,12 @@ class AmazonProductSpider(scrapy.Spider):
             yield product
     
     def extract_products(self, response, search_term):
-        """Extract products using the selectors that worked"""
+        """Extract products using the working selectors from test script"""
         products = []
         
-        # Use our proven container selector
-        containers = response.css('.a-section.a-spacing-base')
-        self.custom_logger.debug(f"🔍 Found {len(containers)} product containers")
+        # Use the selector that worked in our test script
+        containers = response.css('[data-component-type="s-search-result"]')
+        self.custom_logger.info(f"🔍 Found {len(containers)} search result containers")
         
         for container in containers:
             product = self.extract_single_product(container, response.url, search_term)
@@ -135,61 +174,90 @@ class AmazonProductSpider(scrapy.Spider):
         return products
     
     def extract_single_product(self, container, page_url, search_term):
-        """Extract individual product data"""
+        """Extract individual product data using exact selectors from Amazon HTML"""
         try:
-            # Product name using our proven selectors
-            name_selectors = [
+            # Use exact selectors from the provided HTML structure
+            title_selectors = [
                 '[data-cy="title-recipe"] h2 span::text',
-                '.s-line-clamp-1 h2 span::text',
+                '[data-cy="title-recipe"] span::text',
                 'h2 span::text'
             ]
-            name = self.extract_text_with_fallbacks(container, name_selectors)
             
-            # Price using our proven selectors
             price_selectors = [
                 '[data-cy="price-recipe"] .a-price .a-offscreen::text',
-                '.a-price .a-offscreen::text'
+                '.a-price .a-offscreen::text',
+                '[data-cy="price-recipe"] .a-color-price::text',
+                '.a-price-whole::text'
             ]
-            price_text = self.extract_text_with_fallbacks(container, price_selectors)
             
-            # Product link
             link_selectors = [
                 '[data-cy="title-recipe"] a::attr(href)',
-                '.s-line-clamp-1::attr(href)',
-                'h2 a::attr(href)'
+                'h2 a::attr(href)',
+                '.a-link-normal::attr(href)'
             ]
-            link = self.extract_text_with_fallbacks(container, link_selectors)
             
-            # Only include products with valid name and price
-            if name and price_text:
-                price = self.parse_price(price_text)
+            rating_selectors = [
+                '[data-cy="reviews-block"] .a-icon-alt::text',
+                '.a-icon-alt::text'
+            ]
+            
+            # Extract title
+            title = None
+            for selector in title_selectors:
+                title = container.css(selector).get()
+                if title and title.strip():
+                    title = title.strip()
+                    break
+            
+            # Extract price
+            price_text = None
+            for selector in price_selectors:
+                price_text = container.css(selector).get()
+                if price_text and price_text.strip():
+                    break
+            
+            # Extract link
+            link = None
+            for selector in link_selectors:
+                link = container.css(selector).get()
+                if link:
+                    break
+            
+            # Extract rating
+            rating = None
+            for selector in rating_selectors:
+                rating_element = container.css(selector).get()
+                if rating_element and rating_element.strip():
+                    rating = rating_element.strip()
+                    break
+            
+            # Only include products with valid name (price might not always be available)
+            if title:
+                # Parse price if available, otherwise set to None
+                price = self.parse_price(price_text) if price_text else None
                 
                 # Make link absolute
                 if link and not link.startswith('http'):
                     link = f"https://www.amazon.com{link}"
                 
+                self.custom_logger.debug(f"✅ Extracted product: {title[:50]}...")
+                
                 return {
-                    'name': name,
+                    'name': title,
                     'price': price,
                     'link': link,
                     'search_term': search_term,
                     'scrape_time': time.strftime('%Y-%m-%dT%H:%M:%S'),
-                    'availability': 'In Stock'
+                    'availability': 'In Stock',
+                    'rating': rating,
+                    'source': 'Amazon'
                 }
+            else:
+                self.custom_logger.debug(f"❌ Missing title for product")
+                
         except Exception as e:
             self.custom_logger.debug(f"❌ Error extracting product: {e}")
         
-        return None
-    
-    def extract_text_with_fallbacks(self, container, selectors):
-        """Try multiple selectors and return first match"""
-        for selector in selectors:
-            try:
-                result = container.css(selector).get()
-                if result and result.strip():
-                    return result.strip()
-            except:
-                continue
         return None
     
     def parse_price(self, price_str):
