@@ -2,7 +2,7 @@ import logging
 
 from src.data.database import Database
 from src.scrapers.static_scraper import StaticScraper
-from src.scrapers.scrapy_amazon_scraper import AmazonScrapyRunner
+from src.scrapers.scrapy_crawler.amazon_scraper import AmazonScrapyRunner
 from src.utils.config import static_config
 
 # --- Logging Setup ---
