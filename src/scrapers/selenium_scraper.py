@@ -197,3 +197,11 @@ class EbayScraper:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
+def scrape_term_process(term, chromedriver_path, timeout, headless, max_pages=3):
+    scraper = EbayScraper(
+        chromedriver_path=chromedriver_path,
+        timeout=timeout,
+        headless=headless
+    )
+    return scraper.scrape(term, max_pages=max_pages)
