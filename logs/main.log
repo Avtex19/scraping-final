@@ -1,0 +1,7 @@
+2025-06-29 16:46:52,844 - MainProcess - INFO - 📚 Starting static scraping from BooksToScrape...
+2025-06-29 16:46:56,537 - MainProcess - INFO - 📚 Scraped 60 items from BooksToScrape.
+2025-06-29 16:46:56,544 - MainProcess - INFO - ⚙️ Launching multiprocessing for eBay scraping...
+2025-06-29 16:47:13,642 - MainProcess - ERROR - ❌ Error scraping 'iphone': 'str' object does not support item assignment
+2025-06-29 16:47:22,126 - MainProcess - ERROR - ❌ Error scraping 'gaming laptop': 'str' object does not support item assignment
+2025-06-29 16:47:22,216 - MainProcess - ERROR - ❌ Error scraping 'macbook': 'str' object does not support item assignment
+2025-06-29 16:47:22,285 - MainProcess - INFO - ✅ Total of 60 products saved to SQLite.
