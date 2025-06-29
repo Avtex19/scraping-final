@@ -6,7 +6,7 @@ from functools import partial
 from src.data.database import Database
 from src.scrapers.selenium_scraper import scrape_term_process
 from src.scrapers.static_scraper import StaticScraper
-from src.scrapers.scrapy_amazon_scraper import AmazonScrapyRunner
+from src.scrapers.scrapy_crawler.amazon_scraper import AmazonScrapyRunner
 from src.utils.config import static_config
 from src.utils.multiproc_logging import get_log_queue, start_logging_listener
 
