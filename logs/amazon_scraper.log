@@ -1,0 +1,10 @@
+# Amazon Scraper Log - Starting fresh with emoji logging 🚀
+2025-06-29 17:37:55,659 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 17:37:55,659 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 'Database' object has no attribute 'create_job'
+2025-06-29 17:38:33,283 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-29 17:38:33,287 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 26
+2025-06-29 17:38:33,480 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-29 17:38:33,485 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for laptop products
+2025-06-29 17:38:34,174 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1
+2025-06-29 17:38:34,178 - INFO - amazon_products_logger - ✅ Extracted 0 valid products for 'laptop'
+2025-06-29 17:38:34,210 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ No items collected from Amazon
