@@ -1,3 +1,5 @@
+import multiprocessing
+from functools import partial
 from datetime import datetime
 from typing import List, Dict, Any
 from bs4 import BeautifulSoup
@@ -17,35 +19,39 @@ class StaticScraper(BaseScraper):
         self.config = config
         self.logger = setup_logger(__name__, log_file=log_file)
         self.request_helper = RequestHelper(config.get('delay_range', (1, 2)))
-        self.scraped_data = []
 
     def scrape(self) -> List[Dict[str, Any]]:
-        self.logger.info(f" Starting static scraping for source: {self.config.get('name')}")
-        base_url = self.config.get('base_url')
+        self.logger.info(f"📚 Starting static scraping for source: {self.config.get('name')}")
         start_page = self.config.get('start_page', 1)
         max_pages = self.config.get('max_pages', 1)
+        base_url = self.config.get('base_url')
 
-        for page_num in range(start_page, start_page + max_pages):
-            url = base_url.format(page_num)
-            self.logger.info(f" Scraping page {page_num}: {url}")
-            try:
-                response = self.request_helper.get_with_delay(url)
-                soup = BeautifulSoup(response.text, 'html.parser')
-                containers = soup.select(self.config['selectors']['container'])
-                self.logger.debug(f" Found {len(containers)} containers on page {page_num}")
+        page_nums = list(range(start_page, start_page + max_pages))
+        self.logger.info(f"📄 Dispatching scraping for {len(page_nums)} pages...")
 
-                for item in containers:
-                    data = self.extract_data(item, url)
-                    if data:
-                        self.scraped_data.append(data)
-                    else:
-                        self.logger.debug("⚠️ Skipped empty or malformed item")
+        # Use multiprocessing Pool
+        with multiprocessing.Pool(processes=min(4, multiprocessing.cpu_count())) as pool:
+            results = pool.map(partial(self._scrape_page, base_url=base_url), page_nums)
 
-            except Exception as e:
-                self.logger.warning(f" Error scraping {url}: {e}")
+        # Flatten results and filter empty
+        scraped_data = [item for sublist in results for item in sublist if item]
 
-        self.logger.info(f" Finished scraping. Total items scraped: {len(self.scraped_data)}")
-        return self.scraped_data
+        self.logger.info(f"✅ Finished scraping. Total items scraped: {len(scraped_data)}")
+        return scraped_data
+
+    def _scrape_page(self, page_num: int, base_url: str) -> List[Dict[str, Any]]:
+        url = base_url.format(page_num)
+        self.logger.info(f"🔍 Scraping page {page_num}: {url}")
+        try:
+            response = self.request_helper.get_with_delay(url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            containers = soup.select(self.config['selectors']['container'])
+            self.logger.debug(f"📦 Found {len(containers)} items on page {page_num}")
+
+            return [self.extract_data(item, url) for item in containers if self.extract_data(item, url)]
+        except Exception as e:
+            self.logger.warning(f"❌ Error scraping {url}: {e}")
+            return []
 
     def extract_data(self, item, base_url: str) -> Dict[str, Any]:
         sel = self.config['selectors']
