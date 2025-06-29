@@ -20,19 +20,19 @@ class StaticScraper(BaseScraper):
         self.scraped_data = []
 
     def scrape(self) -> List[Dict[str, Any]]:
-        self.logger.info(f"🚀 Starting static scraping for source: {self.config.get('name')}")
+        self.logger.info(f" Starting static scraping for source: {self.config.get('name')}")
         base_url = self.config.get('base_url')
         start_page = self.config.get('start_page', 1)
         max_pages = self.config.get('max_pages', 1)
 
         for page_num in range(start_page, start_page + max_pages):
             url = base_url.format(page_num)
-            self.logger.info(f"🔍 Scraping page {page_num}: {url}")
+            self.logger.info(f" Scraping page {page_num}: {url}")
             try:
                 response = self.request_helper.get_with_delay(url)
                 soup = BeautifulSoup(response.text, 'html.parser')
                 containers = soup.select(self.config['selectors']['container'])
-                self.logger.debug(f"🧱 Found {len(containers)} containers on page {page_num}")
+                self.logger.debug(f" Found {len(containers)} containers on page {page_num}")
 
                 for item in containers:
                     data = self.extract_data(item, url)
@@ -42,9 +42,9 @@ class StaticScraper(BaseScraper):
                         self.logger.debug("⚠️ Skipped empty or malformed item")
 
             except Exception as e:
-                self.logger.warning(f"❌ Error scraping {url}: {e}")
+                self.logger.warning(f" Error scraping {url}: {e}")
 
-        self.logger.info(f"✅ Finished scraping. Total items scraped: {len(self.scraped_data)}")
+        self.logger.info(f" Finished scraping. Total items scraped: {len(self.scraped_data)}")
         return self.scraped_data
 
     def extract_data(self, item, base_url: str) -> Dict[str, Any]:
