@@ -13,7 +13,7 @@ def setup_logger(name=__name__, log_file='logs/ebay_scraper.log', level=logging.
         console_format = logging.Formatter('%(levelname)s - %(message)s')
         console_handler.setFormatter(console_format)
 
-        file_handler = logging.FileHandler(log_file, mode='a')
+        file_handler = logging.FileHandler(log_file, mode='a', encoding='utf-8')
         file_format = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
         file_handler.setFormatter(file_format)
 
