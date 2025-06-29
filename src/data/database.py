@@ -37,10 +37,19 @@ class Database:
             availability TEXT,
             scrape_time TEXT,
             search_term TEXT,
+            source TEXT,
             job_id INTEGER,
             FOREIGN KEY (job_id) REFERENCES jobs(job_id)
         )
         """)
+        
+        # Add source column if it doesn't exist (for existing databases)
+        try:
+            cursor.execute("ALTER TABLE products ADD COLUMN source TEXT")
+            self.conn.commit()
+        except sqlite3.OperationalError:
+            # Column already exists
+            pass
         self.conn.commit()
 
     def queue_job(self, search_term: str) -> int:
@@ -66,8 +75,8 @@ class Database:
         """Insert list of product dicts into DB."""
         query = """
         INSERT OR IGNORE INTO products (
-            name, price, link, image, availability, scrape_time, search_term, job_id
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            name, price, link, image, availability, scrape_time, search_term, source, job_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
         to_insert = [
             (
@@ -78,6 +87,7 @@ class Database:
                 p.get('availability'),
                 p.get('scrape_time'),
                 p.get('search_term'),
+                p.get('source'),
                 job_id
             )
             for p in products
@@ -102,6 +112,22 @@ class Database:
         cursor = self.conn.cursor()
         cursor.execute("SELECT * FROM jobs WHERE status = 'pending'")
         return cursor.fetchall()
+
+    def get_products(self, source: Optional[str] = None, search_term: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Retrieve products from database, optionally filtered by source or search_term."""
+        cursor = self.conn.cursor()
+        query = "SELECT * FROM products"
+        params = []
+        
+        if search_term:
+            query += " WHERE search_term = ?"
+            params.append(search_term)
+        
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+        
+        # Convert sqlite3.Row objects to dictionaries
+        return [dict(row) for row in rows]
 
     def close(self):
         self.conn.close()
