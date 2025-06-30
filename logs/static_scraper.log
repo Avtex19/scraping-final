@@ -17,4 +17,27 @@
 2025-06-29 15:53:33,402 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 1: http://books.toscrape.com/catalogue/page-1.html
 2025-06-29 15:53:36,681 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 2: http://books.toscrape.com/catalogue/page-2.html
 2025-06-29 15:53:39,201 - INFO - src.scrapers.static_scraper - 🔍 Scraping page 3: http://books.toscrape.com/catalogue/page-3.html
-2025-06-29 15:53:41,733 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-29 15:53:41,733 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 602025-06-30 21:38:05,661 - INFO - src.scrapers.static_scraper -  Starting static scraping for source: BooksToScrape
+2025-06-30 21:38:05,662 - INFO - src.scrapers.static_scraper -  Dispatching scraping for 3 pages...
+2025-06-30 21:38:09,261 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-30 21:38:09,263 - INFO - src.scrapers.static_scraper - 💾 Saved scraped data to ../logs/bookstoscrape_results.json
+2025-06-30 21:38:58,645 - INFO - src.scrapers.static_scraper -  Starting static scraping for source: BooksToScrape
+2025-06-30 21:38:58,647 - INFO - src.scrapers.static_scraper -  Dispatching scraping for 3 pages...
+2025-06-30 21:39:02,390 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-30 21:39:02,391 - INFO - src.scrapers.static_scraper - 💾 Saved scraped data to ../logs/bookstoscrape_results.json
+2025-06-30 21:45:17,634 - INFO - src.scrapers.static_scraper -  Starting static scraping for source: BooksToScrape
+2025-06-30 21:45:17,635 - INFO - src.scrapers.static_scraper -  Dispatching scraping for 3 pages...
+2025-06-30 21:45:21,432 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-30 21:45:21,433 - INFO - src.scrapers.static_scraper - 💾 Saved scraped data to ../logs/bookstoscrape_results.json
+2025-06-30 21:46:25,613 - INFO - src.scrapers.static_scraper -  Starting static scraping for source: BooksToScrape
+2025-06-30 21:46:25,613 - INFO - src.scrapers.static_scraper -  Dispatching scraping for 3 pages...
+2025-06-30 21:46:29,740 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-30 21:46:29,742 - INFO - src.scrapers.static_scraper - 💾 Saved scraped data to ../logs/bookstoscrape_results.json
+2025-06-30 21:58:18,552 - INFO - src.scrapers.static_scraper -  Starting static scraping for source: BooksToScrape
+2025-06-30 21:58:18,553 - INFO - src.scrapers.static_scraper -  Dispatching scraping for 3 pages...
+2025-06-30 21:58:22,555 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-30 21:58:22,557 - INFO - src.scrapers.static_scraper - 💾 Saved scraped data to ../logs/bookstoscrape_results.json
+2025-06-30 21:59:21,907 - INFO - src.scrapers.static_scraper -  Starting static scraping for source: BooksToScrape
+2025-06-30 21:59:21,908 - INFO - src.scrapers.static_scraper -  Dispatching scraping for 3 pages...
+2025-06-30 21:59:26,194 - INFO - src.scrapers.static_scraper - ✅ Finished scraping. Total items scraped: 60
+2025-06-30 21:59:26,196 - INFO - src.scrapers.static_scraper - 💾 Saved scraped data to ../logs/bookstoscrape_results.json

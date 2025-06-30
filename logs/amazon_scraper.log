@@ -139,3 +139,275 @@
 2025-06-29 20:22:33,638 - INFO - amazon_products_logger - 🔍 Found 21 search result containers
 2025-06-29 20:22:33,647 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
 2025-06-29 20:22:33,849 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Saved 21 Amazon products to database!
+2025-06-30 21:38:25,520 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-30 21:38:25,521 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 58
+2025-06-30 21:38:25,544 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:38:25,606 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-30 21:38:39,161 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 0)
+2025-06-30 21:38:39,162 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:38:39,162 - INFO - amazon_products_logger - 📏 Response length: 1468370 characters
+2025-06-30 21:38:39,200 - INFO - amazon_products_logger - 🔍 Found 21 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:38:39,210 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-30 21:38:47,965 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 1)
+2025-06-30 21:38:47,965 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:38:47,965 - INFO - amazon_products_logger - 📏 Response length: 1454614 characters
+2025-06-30 21:38:48,003 - INFO - amazon_products_logger - 🔍 Found 22 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:38:48,014 - INFO - amazon_products_logger - ✅ Extracted 22 valid products for 'laptop'
+2025-06-30 21:38:51,264 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 2)
+2025-06-30 21:38:51,264 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:38:51,264 - INFO - amazon_products_logger - 📏 Response length: 1552380 characters
+2025-06-30 21:38:51,302 - INFO - amazon_products_logger - 🔍 Found 22 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:38:51,312 - INFO - amazon_products_logger - ✅ Extracted 22 valid products for 'laptop'
+2025-06-30 21:38:51,428 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📖 Read 65 items from temp file
+2025-06-30 21:38:51,428 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Collected 65 Amazon products!
+2025-06-30 21:38:51,432 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Successfully saved 65 Amazon products to database!
+2025-06-30 21:40:21,636 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['xiaomi']
+2025-06-30 21:40:21,640 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 61
+2025-06-30 21:40:21,662 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:40:21,673 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 
+2025-06-30 21:40:21,676 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - Traceback (most recent call last):
+  File "/Users/atukaberadze/Desktop/scraping-final/src/cli/../../src/scrapers/scrapy_crawler/amazon_scraper.py", line 70, in run_scraper
+    process.start()
+    ~~~~~~~~~~~~~^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/scrapy/crawler.py", line 502, in start
+    reactor.run(installSignalHandlers=install_signal_handlers)  # blocking call
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/asyncioreactor.py", line 252, in run
+    self.startRunning(installSignalHandlers=installSignalHandlers)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/base.py", line 926, in startRunning
+    raise error.ReactorNotRestartable()
+twisted.internet.error.ReactorNotRestartable
+
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+==================================================
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ Amazon Anti-Bot Protection Active
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🛡️ Amazon is blocking automated access (this is normal)
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📋 Your scraping framework is working correctly!
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 💡 Alternative options:
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use eBay scraper (more reliable for demos)
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use Static scraper (BooksToScrape - 100% reliable)
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • For Amazon, would need enterprise-level anti-detection
+2025-06-30 21:40:21,676 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:40:21,677 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Try the eBay or Static scrapers to see your framework in action!
+2025-06-30 21:40:21,677 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ==================================================
+2025-06-30 21:41:03,127 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['xiaomi']
+2025-06-30 21:41:03,130 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 62
+2025-06-30 21:41:03,150 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:41:03,158 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 
+2025-06-30 21:41:03,159 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - Traceback (most recent call last):
+  File "/Users/atukaberadze/Desktop/scraping-final/src/cli/../../src/scrapers/scrapy_crawler/amazon_scraper.py", line 70, in run_scraper
+    process.start()
+    ~~~~~~~~~~~~~^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/scrapy/crawler.py", line 502, in start
+    reactor.run(installSignalHandlers=install_signal_handlers)  # blocking call
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/asyncioreactor.py", line 252, in run
+    self.startRunning(installSignalHandlers=installSignalHandlers)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/base.py", line 926, in startRunning
+    raise error.ReactorNotRestartable()
+twisted.internet.error.ReactorNotRestartable
+
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+==================================================
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ Amazon Anti-Bot Protection Active
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🛡️ Amazon is blocking automated access (this is normal)
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📋 Your scraping framework is working correctly!
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 💡 Alternative options:
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use eBay scraper (more reliable for demos)
+2025-06-30 21:41:03,159 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use Static scraper (BooksToScrape - 100% reliable)
+2025-06-30 21:41:03,160 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • For Amazon, would need enterprise-level anti-detection
+2025-06-30 21:41:03,160 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:41:03,160 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Try the eBay or Static scrapers to see your framework in action!
+2025-06-30 21:41:03,160 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ==================================================
+2025-06-30 21:42:28,686 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-30 21:42:28,689 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 63
+2025-06-30 21:42:28,730 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:42:28,796 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-30 21:45:30,911 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-30 21:45:30,911 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 66
+2025-06-30 21:45:30,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:45:31,001 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-30 21:45:43,942 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 0)
+2025-06-30 21:45:43,942 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:45:43,942 - INFO - amazon_products_logger - 📏 Response length: 1346171 characters
+2025-06-30 21:45:43,980 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:45:43,989 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'laptop'
+2025-06-30 21:45:57,229 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 2)
+2025-06-30 21:45:57,230 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:45:57,230 - INFO - amazon_products_logger - 📏 Response length: 1550503 characters
+2025-06-30 21:45:57,266 - INFO - amazon_products_logger - 🔍 Found 22 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:45:57,276 - INFO - amazon_products_logger - ✅ Extracted 22 valid products for 'laptop'
+2025-06-30 21:46:03,200 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 1)
+2025-06-30 21:46:03,200 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:46:03,200 - INFO - amazon_products_logger - 📏 Response length: 1470124 characters
+2025-06-30 21:46:03,236 - INFO - amazon_products_logger - 🔍 Found 22 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:46:03,247 - INFO - amazon_products_logger - ✅ Extracted 22 valid products for 'laptop'
+2025-06-30 21:46:03,343 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📖 Read 60 items from temp file
+2025-06-30 21:46:03,343 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Collected 60 Amazon products!
+2025-06-30 21:46:03,348 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Successfully saved 60 Amazon products to database!
+2025-06-30 21:47:49,208 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-30 21:47:49,210 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 69
+2025-06-30 21:47:49,266 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:47:49,273 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 
+2025-06-30 21:47:49,279 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - Traceback (most recent call last):
+  File "/Users/atukaberadze/Desktop/scraping-final/src/cli/../../src/scrapers/scrapy_crawler/amazon_scraper.py", line 70, in run_scraper
+    process.start()
+    ~~~~~~~~~~~~~^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/scrapy/crawler.py", line 502, in start
+    reactor.run(installSignalHandlers=install_signal_handlers)  # blocking call
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/asyncioreactor.py", line 252, in run
+    self.startRunning(installSignalHandlers=installSignalHandlers)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/base.py", line 926, in startRunning
+    raise error.ReactorNotRestartable()
+twisted.internet.error.ReactorNotRestartable
+
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+==================================================
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ Amazon Anti-Bot Protection Active
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🛡️ Amazon is blocking automated access (this is normal)
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📋 Your scraping framework is working correctly!
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 💡 Alternative options:
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use eBay scraper (more reliable for demos)
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use Static scraper (BooksToScrape - 100% reliable)
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • For Amazon, would need enterprise-level anti-detection
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Try the eBay or Static scrapers to see your framework in action!
+2025-06-30 21:47:49,279 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ==================================================
+2025-06-30 21:48:17,286 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['samsung']
+2025-06-30 21:48:17,289 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 70
+2025-06-30 21:48:17,312 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:48:17,326 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 
+2025-06-30 21:48:17,327 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - Traceback (most recent call last):
+  File "/Users/atukaberadze/Desktop/scraping-final/src/cli/../../src/scrapers/scrapy_crawler/amazon_scraper.py", line 70, in run_scraper
+    process.start()
+    ~~~~~~~~~~~~~^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/scrapy/crawler.py", line 502, in start
+    reactor.run(installSignalHandlers=install_signal_handlers)  # blocking call
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/asyncioreactor.py", line 252, in run
+    self.startRunning(installSignalHandlers=installSignalHandlers)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/base.py", line 926, in startRunning
+    raise error.ReactorNotRestartable()
+twisted.internet.error.ReactorNotRestartable
+
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+==================================================
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ Amazon Anti-Bot Protection Active
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🛡️ Amazon is blocking automated access (this is normal)
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📋 Your scraping framework is working correctly!
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 💡 Alternative options:
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use eBay scraper (more reliable for demos)
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use Static scraper (BooksToScrape - 100% reliable)
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • For Amazon, would need enterprise-level anti-detection
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Try the eBay or Static scrapers to see your framework in action!
+2025-06-30 21:48:17,327 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ==================================================
+2025-06-30 21:58:31,396 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-30 21:58:31,397 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 73
+2025-06-30 21:58:31,438 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 21:58:31,545 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-30 21:58:44,718 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 0)
+2025-06-30 21:58:44,719 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:58:44,719 - INFO - amazon_products_logger - 📏 Response length: 1517938 characters
+2025-06-30 21:58:44,764 - INFO - amazon_products_logger - 🔍 Found 21 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:58:44,774 - INFO - amazon_products_logger - ✅ Extracted 21 valid products for 'laptop'
+2025-06-30 21:58:51,674 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 1)
+2025-06-30 21:58:51,675 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:58:51,675 - INFO - amazon_products_logger - 📏 Response length: 1570540 characters
+2025-06-30 21:58:51,716 - INFO - amazon_products_logger - 🔍 Found 22 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:58:51,726 - INFO - amazon_products_logger - ✅ Extracted 22 valid products for 'laptop'
+2025-06-30 21:58:53,627 - INFO - amazon_products_logger - 📋 Parsing search results for 'laptop' - Page 1 (URL variant 2)
+2025-06-30 21:58:53,627 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 21:58:53,628 - INFO - amazon_products_logger - 📏 Response length: 1336465 characters
+2025-06-30 21:58:53,662 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 21:58:53,670 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'laptop'
+2025-06-30 21:58:53,757 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📖 Read 59 items from temp file
+2025-06-30 21:58:53,758 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Collected 59 Amazon products!
+2025-06-30 21:58:53,766 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Successfully saved 59 Amazon products to database!
+2025-06-30 22:00:51,865 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['laptop']
+2025-06-30 22:00:51,868 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 76
+2025-06-30 22:00:51,924 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 22:00:51,931 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - ❌ Error running Amazon scraper: 
+2025-06-30 22:00:51,934 - ERROR - src.scrapers.scrapy_crawler.amazon_scraper - Traceback (most recent call last):
+  File "/Users/atukaberadze/Desktop/scraping-final/src/cli/../../src/scrapers/scrapy_crawler/amazon_scraper.py", line 70, in run_scraper
+    process.start()
+    ~~~~~~~~~~~~~^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/scrapy/crawler.py", line 502, in start
+    reactor.run(installSignalHandlers=install_signal_handlers)  # blocking call
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/asyncioreactor.py", line 252, in run
+    self.startRunning(installSignalHandlers=installSignalHandlers)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/atukaberadze/Desktop/scraping-final/myvenv/lib/python3.13/site-packages/twisted/internet/base.py", line 926, in startRunning
+    raise error.ReactorNotRestartable()
+twisted.internet.error.ReactorNotRestartable
+
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+==================================================
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ⚠️ Amazon Anti-Bot Protection Active
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🛡️ Amazon is blocking automated access (this is normal)
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📋 Your scraping framework is working correctly!
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 💡 Alternative options:
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use eBay scraper (more reliable for demos)
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • Use Static scraper (BooksToScrape - 100% reliable)
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper -    • For Amazon, would need enterprise-level anti-detection
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Try the eBay or Static scrapers to see your framework in action!
+2025-06-30 22:00:51,934 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ==================================================
+2025-06-30 22:07:19,936 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🚀 Starting Amazon scraper for terms: ['iphone']
+2025-06-30 22:07:19,942 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📝 Created job ID: 77
+2025-06-30 22:07:19,995 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🕸️ Starting Scrapy crawler process...
+2025-06-30 22:07:20,117 - INFO - amazon_products_logger - 🚀 Starting Amazon scraper for search
+2025-06-30 22:07:33,380 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 1 (URL variant 0)
+2025-06-30 22:07:33,380 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:07:33,381 - INFO - amazon_products_logger - 📏 Response length: 920637 characters
+2025-06-30 22:07:33,408 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:07:33,419 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'iphone'
+2025-06-30 22:07:40,355 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 1 (URL variant 1)
+2025-06-30 22:07:40,355 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:07:40,356 - INFO - amazon_products_logger - 📏 Response length: 1131899 characters
+2025-06-30 22:07:40,382 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:07:40,394 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'iphone'
+2025-06-30 22:07:50,189 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 1 (URL variant 2)
+2025-06-30 22:07:50,190 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:07:50,190 - INFO - amazon_products_logger - 📏 Response length: 955748 characters
+2025-06-30 22:07:50,216 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:07:50,235 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'iphone'
+2025-06-30 22:07:51,540 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 2 (URL variant 0)
+2025-06-30 22:07:51,540 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:07:51,540 - INFO - amazon_products_logger - 📏 Response length: 1077815 characters
+2025-06-30 22:07:51,565 - INFO - amazon_products_logger - 🔍 Found 18 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:07:51,578 - INFO - amazon_products_logger - ✅ Extracted 18 valid products for 'iphone'
+2025-06-30 22:07:59,201 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 3 (URL variant 0)
+2025-06-30 22:07:59,201 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:07:59,201 - INFO - amazon_products_logger - 📏 Response length: 1148472 characters
+2025-06-30 22:07:59,224 - INFO - amazon_products_logger - 🔍 Found 18 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:07:59,236 - INFO - amazon_products_logger - ✅ Extracted 18 valid products for 'iphone'
+2025-06-30 22:08:06,094 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 4 (URL variant 0)
+2025-06-30 22:08:06,094 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:08:06,094 - INFO - amazon_products_logger - 📏 Response length: 914003 characters
+2025-06-30 22:08:06,117 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:08:06,129 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'iphone'
+2025-06-30 22:08:13,219 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 5 (URL variant 0)
+2025-06-30 22:08:13,219 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:08:13,219 - INFO - amazon_products_logger - 📏 Response length: 1152843 characters
+2025-06-30 22:08:13,249 - INFO - amazon_products_logger - 🔍 Found 16 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:08:13,259 - INFO - amazon_products_logger - ✅ Extracted 16 valid products for 'iphone'
+2025-06-30 22:08:20,896 - INFO - amazon_products_logger - 📋 Parsing search results for 'iphone' - Page 6 (URL variant 0)
+2025-06-30 22:08:20,897 - INFO - amazon_products_logger - 📄 Response status: 200
+2025-06-30 22:08:20,897 - INFO - amazon_products_logger - 📏 Response length: 1043057 characters
+2025-06-30 22:08:20,918 - INFO - amazon_products_logger - 🔍 Found 18 containers using selector: [data-component-type="s-search-result"]
+2025-06-30 22:08:20,923 - INFO - amazon_products_logger - ✅ Extracted 18 valid products for 'iphone'
+2025-06-30 22:08:21,038 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 📖 Read 134 items from temp file
+2025-06-30 22:08:21,038 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - 🎉 Collected 134 Amazon products!
+2025-06-30 22:08:21,051 - INFO - src.scrapers.scrapy_crawler.amazon_scraper - ✅ Successfully saved 134 Amazon products to database!

@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Analysis Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #3498db; padding-bottom: 15px; }
+        h2 { color: #34495e; border-bottom: 2px solid #ecf0f1; padding-bottom: 8px; margin-top: 30px; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 6px; text-align: center; }
+        .metric-value { font-size: 1.8em; font-weight: bold; margin-bottom: 5px; }
+        .metric-label { font-size: 0.9em; opacity: 0.9; }
+        .chart-container { text-align: center; margin: 20px 0; }
+        .chart-container img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; font-weight: bold; }
+        .footer { text-align: center; margin-top: 30px; color: #6c757d; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Statistical Analysis Report</h1>
+        <p style="text-align: center; color: #6c757d;">Generated on 2025-06-30 22:12:53</p>
+        
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">2111</div>
+                <div class="metric-label">Total Products</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">82.7%</div>
+                <div class="metric-label">Price Data Quality</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">521.45</div>
+                <div class="metric-label">Average Price</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">120</div>
+                <div class="metric-label">Price Outliers</div>
+            </div>
+        </div>
+        
+        <h2>📈 Statistical Summary by Source</h2>
+        <table>
+            <thead>
+                <tr><th>Source</th><th>Products</th><th>Avg Price</th><th>Min Price</th><th>Max Price</th></tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>books</td>
+                    <td>60</td>
+                    <td>$35.0</td>
+                    <td>$12.84</td>
+                    <td>$57.31</td>
+                </tr>
+                
+                <tr>
+                    <td>iphone</td>
+                    <td>489</td>
+                    <td>$1384.99</td>
+                    <td>$9.69</td>
+                    <td>$119000.0</td>
+                </tr>
+                
+                <tr>
+                    <td>macbook</td>
+                    <td>180</td>
+                    <td>$594.65</td>
+                    <td>$21.39</td>
+                    <td>$6445.15</td>
+                </tr>
+                
+                <tr>
+                    <td>gaming laptop</td>
+                    <td>180</td>
+                    <td>$484.88</td>
+                    <td>$27.99</td>
+                    <td>$3045.51</td>
+                </tr>
+                
+                <tr>
+                    <td>laptop</td>
+                    <td>813</td>
+                    <td>$323.04</td>
+                    <td>$1.37</td>
+                    <td>$2399.99</td>
+                </tr>
+                
+                <tr>
+                    <td>samsung</td>
+                    <td>389</td>
+                    <td>$171.86</td>
+                    <td>$4.96</td>
+                    <td>$1937.32</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        
+        <h2>💰 Price Distribution Analysis</h2>
+        <table>
+            <thead>
+                <tr><th>Price Range</th><th>Count</th><th>Percentage</th></tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>Budget</td>
+                    <td>441</td>
+                    <td>25.3%</td>
+                </tr>
+                
+                <tr>
+                    <td>Mid-Range</td>
+                    <td>882</td>
+                    <td>50.5%</td>
+                </tr>
+                
+                <tr>
+                    <td>Premium</td>
+                    <td>448</td>
+                    <td>25.7%</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        
+        
+        <h2>💰 Price Distribution Analysis</h2>
+        <div class="chart-container">
+            <img src="price_distribution.png" alt="Price Distribution Chart">
+        </div>
+        
+        
+        
+        <h2>📈 Source Comparison Analysis</h2>
+        <div class="chart-container">
+            <img src="source_comparison.png" alt="Source Comparison Chart">
+        </div>
+        
+        
+        <div class="footer">
+            <p>Statistical Report Generated by Advanced Web Scraping Framework</p>
+            <p>2025-06-30 22:12:53</p>
+        </div>
+    </div>
+</body>
+</html>
+        

@@ -87,4 +87,53 @@
 2025-06-29 15:54:33,466 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 3: https://www.ebay.com/sch/i.html?_nkw=gaming laptop&_pgn=3
 2025-06-29 15:54:37,009 - INFO - src.scrapers.selenium_scraper - ✅ Extracted 62 valid items from page 3
 2025-06-29 15:54:39,127 - INFO - src.scrapers.selenium_scraper - 🛑 WebDriver closed.
-2025-06-29 15:54:39,127 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'gaming laptop'. Total items: 186
+2025-06-29 15:54:39,127 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'gaming laptop'. Total items: 1862025-06-30 21:38:10,758 - INFO - src.scrapers.selenium_scraper -  WebDriver initialized.
+2025-06-30 21:38:10,759 - INFO - src.scrapers.selenium_scraper -  Starting scrape for 'iphone'
+2025-06-30 21:38:10,759 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 1: https://www.ebay.com/sch/i.html?_nkw=iphone&_pgn=1
+2025-06-30 21:38:23,402 - WARNING - src.scrapers.selenium_scraper - ⏰ Timeout on page 1, skipping...
+2025-06-30 21:38:25,517 - INFO - src.scrapers.selenium_scraper -  WebDriver closed.
+2025-06-30 21:38:25,517 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'iphone'. Total items: 0
+2025-06-30 21:38:25,517 - INFO - src.scrapers.selenium_scraper - 💾 Saved scraped data to ../logs/ebay_iphone_results.json
+2025-06-30 21:39:24,442 - INFO - src.scrapers.selenium_scraper -  WebDriver initialized.
+2025-06-30 21:39:24,442 - INFO - src.scrapers.selenium_scraper -  Starting scrape for 'iphone'
+2025-06-30 21:39:24,443 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 1: https://www.ebay.com/sch/i.html?_nkw=iphone&_pgn=1
+2025-06-30 21:39:37,365 - WARNING - src.scrapers.selenium_scraper - ⏰ Timeout on page 1, skipping...
+2025-06-30 21:39:39,476 - INFO - src.scrapers.selenium_scraper -  WebDriver closed.
+2025-06-30 21:39:39,476 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'iphone'. Total items: 0
+2025-06-30 21:39:39,476 - INFO - src.scrapers.selenium_scraper - 💾 Saved scraped data to ../logs/ebay_iphone_results.json
+2025-06-30 21:45:22,639 - INFO - src.scrapers.selenium_scraper -  WebDriver initialized.
+2025-06-30 21:45:22,640 - INFO - src.scrapers.selenium_scraper -  Starting scrape for 'iphone'
+2025-06-30 21:45:22,641 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 1: https://www.ebay.com/sch/i.html?_nkw=iphone&_pgn=1
+2025-06-30 21:45:28,810 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 1
+2025-06-30 21:45:30,901 - INFO - src.scrapers.selenium_scraper -  WebDriver closed.
+2025-06-30 21:45:30,901 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'iphone'. Total items: 60
+2025-06-30 21:45:30,902 - INFO - src.scrapers.selenium_scraper - 💾 Saved scraped data to ../logs/ebay_iphone_results.json
+2025-06-30 21:46:56,647 - INFO - src.scrapers.selenium_scraper -  WebDriver initialized.
+2025-06-30 21:46:56,647 - INFO - src.scrapers.selenium_scraper -  Starting scrape for 'laptop'
+2025-06-30 21:46:56,647 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 1: https://www.ebay.com/sch/i.html?_nkw=laptop&_pgn=1
+2025-06-30 21:47:08,479 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 1
+2025-06-30 21:47:10,485 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 2: https://www.ebay.com/sch/i.html?_nkw=laptop&_pgn=2
+2025-06-30 21:47:24,004 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 2
+2025-06-30 21:47:26,201 - INFO - src.scrapers.selenium_scraper -  WebDriver closed.
+2025-06-30 21:47:26,201 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'laptop'. Total items: 120
+2025-06-30 21:47:26,202 - INFO - src.scrapers.selenium_scraper - 💾 Saved scraped data to ../logs/ebay_laptop_results.json
+2025-06-30 21:58:24,067 - INFO - src.scrapers.selenium_scraper -  WebDriver initialized.
+2025-06-30 21:58:24,067 - INFO - src.scrapers.selenium_scraper -  Starting scrape for 'iphone'
+2025-06-30 21:58:24,068 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 1: https://www.ebay.com/sch/i.html?_nkw=iphone&_pgn=1
+2025-06-30 21:58:29,092 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 1
+2025-06-30 21:58:31,379 - INFO - src.scrapers.selenium_scraper -  WebDriver closed.
+2025-06-30 21:58:31,380 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'iphone'. Total items: 60
+2025-06-30 21:58:31,381 - INFO - src.scrapers.selenium_scraper - 💾 Saved scraped data to ../logs/ebay_iphone_results.json
+2025-06-30 21:59:57,739 - INFO - src.scrapers.selenium_scraper -  WebDriver initialized.
+2025-06-30 21:59:57,740 - INFO - src.scrapers.selenium_scraper -  Starting scrape for 'laptop'
+2025-06-30 21:59:57,740 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 1: https://www.ebay.com/sch/i.html?_nkw=laptop&_pgn=1
+2025-06-30 22:00:04,843 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 1
+2025-06-30 22:00:06,848 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 2: https://www.ebay.com/sch/i.html?_nkw=laptop&_pgn=2
+2025-06-30 22:00:12,920 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 2
+2025-06-30 22:00:14,928 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 3: https://www.ebay.com/sch/i.html?_nkw=laptop&_pgn=3
+2025-06-30 22:00:24,753 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 3
+2025-06-30 22:00:26,756 - INFO - src.scrapers.selenium_scraper - 🔍 Scraping page 4: https://www.ebay.com/sch/i.html?_nkw=laptop&_pgn=4
+2025-06-30 22:00:34,085 - INFO - src.scrapers.selenium_scraper -  Extracted 60 valid items from page 4
+2025-06-30 22:00:36,234 - INFO - src.scrapers.selenium_scraper -  WebDriver closed.
+2025-06-30 22:00:36,235 - INFO - src.scrapers.selenium_scraper - 🎯 Finished scraping 'laptop'. Total items: 240
+2025-06-30 22:00:36,237 - INFO - src.scrapers.selenium_scraper - 💾 Saved scraped data to ../logs/ebay_laptop_results.json
