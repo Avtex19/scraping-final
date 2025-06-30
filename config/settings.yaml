@@ -1,0 +1,216 @@
+# Advanced Web Scraping Framework Configuration
+# This file controls all aspects of the scraping system
+
+# Scraping Configuration
+scraping:
+  sources:
+    # Static scraping with BeautifulSoup4
+    static:
+      enabled: true
+      max_pages: 3
+      delay_range: [1, 2]  # seconds between requests
+      timeout: 30
+      retries: 3
+      
+    # Dynamic scraping with Selenium
+    dynamic:
+      enabled: true
+      max_pages: 2
+      search_terms: 
+        - "iphone"
+        - "macbook"
+        - "gaming laptop"
+      headless: true
+      timeout: 10
+      chrome_options:
+        - "--no-sandbox"
+        - "--disable-dev-shm-usage"
+        - "--disable-gpu"
+        
+    # Framework scraping with Scrapy
+    framework:
+      enabled: true
+      max_pages: 1
+      search_terms:
+        - "laptop"
+      concurrent_requests: 1
+      download_delay: 2
+      randomize_delay: true
+
+  # Protection mechanisms
+  protection:
+    rate_limiting: true
+    user_agent_rotation: true
+    retry_attempts: 3
+    retry_delay: 5  # seconds
+    captcha_detection: true
+    respect_robots_txt: true
+    max_concurrent_requests: 4
+
+  # Advanced features
+  advanced:
+    proxy_rotation: false
+    proxy_list: []
+    session_management: true
+    cookie_persistence: true
+    javascript_execution: true
+
+# Data Processing & Analysis Configuration
+analysis:
+  auto_generate_reports: true
+  export_formats:
+    - "json"
+    - "csv" 
+    - "excel"
+  chart_generation: true
+  statistical_analysis: true
+  trend_analysis: true
+  outlier_detection: true
+  
+  # Data quality thresholds
+  quality_thresholds:
+    min_completeness: 80  # minimum % completeness for data quality pass
+    max_duplicates: 10    # maximum number of duplicate records
+    min_valid_prices: 70  # minimum % valid prices
+
+# Scheduling & Automation
+scheduling:
+  enabled: false
+  frequency: "daily"  # daily, weekly, hourly
+  time: "02:00"       # HH:MM format
+  timezone: "UTC"
+  auto_cleanup: true
+  max_data_age_days: 30
+  
+  # Notification settings
+  notifications:
+    email_enabled: false
+    email_recipients: []
+    slack_webhook: ""
+    discord_webhook: ""
+
+# Output & Storage Configuration
+output:
+  base_directory: "data_output"
+  organize_by_date: true
+  compress_old_files: true
+  max_file_size_mb: 100
+  
+  # Directory structure
+  directories:
+    raw: "data_output/raw"
+    processed: "data_output/processed"
+    reports: "data_output/reports"
+    logs: "logs"
+    
+# Database Configuration
+database:
+  type: "sqlite"  # sqlite, postgresql
+  path: "scraped_data.db"
+  
+  # PostgreSQL settings (if using PostgreSQL)
+  postgresql:
+    host: "localhost"
+    port: 5432
+    username: ""
+    password: ""
+    database: "scraping_db"
+    
+  # Database optimization
+  optimization:
+    enable_wal_mode: true
+    enable_foreign_keys: true
+    cache_size: 2000
+    temp_store: "memory"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # File logging
+  file_logging:
+    enabled: true
+    max_size_mb: 10
+    backup_count: 5
+    
+  # Console logging
+  console_logging:
+    enabled: true
+    colored: true
+    
+  # Specific loggers
+  loggers:
+    scrapers: "INFO"
+    database: "WARNING"
+    analysis: "INFO"
+    cli: "INFO"
+
+# Performance & Resource Management
+performance:
+  max_memory_usage_mb: 1024
+  max_cpu_usage_percent: 80
+  multiprocessing:
+    enabled: true
+    max_workers: 4
+    chunk_size: 100
+    
+  # Caching
+  caching:
+    enabled: true
+    ttl_seconds: 3600
+    max_cache_size_mb: 256
+
+# Security & Compliance
+security:
+  respect_robots_txt: true
+  user_agent: "Advanced Web Scraping Framework 1.0 (Educational)"
+  min_request_delay: 1
+  max_requests_per_minute: 30
+  
+  # Data privacy
+  privacy:
+    anonymize_data: false
+    exclude_personal_info: true
+    gdpr_compliance: true
+    
+# CLI Configuration
+cli:
+  interactive_mode: true
+  progress_bars: true
+  colored_output: true
+  confirmation_prompts: true
+  
+  # Default options
+  defaults:
+    export_format: "all"
+    report_format: "html"
+    analysis_depth: "comprehensive"
+
+# Development & Testing
+development:
+  debug_mode: false
+  test_mode: false
+  mock_requests: false
+  sample_data_only: false
+  
+  # Testing configuration
+  testing:
+    max_test_pages: 1
+    use_local_test_data: false
+    skip_network_tests: false
+
+# Feature Flags
+features:
+  experimental_features: false
+  beta_scrapers: false
+  advanced_analytics: true
+  real_time_monitoring: false
+  api_endpoints: false
+
+# Version and Metadata
+metadata:
+  version: "1.0.0"
+  last_updated: "2024-01-01"
+  config_schema_version: "1.0"
+  description: "Advanced Web Scraping Framework Configuration" 
