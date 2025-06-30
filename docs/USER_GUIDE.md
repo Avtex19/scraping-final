@@ -28,9 +28,14 @@ This demonstrates all three scraping approaches with sample data.
 
 ### 3. Interactive CLI
 ```bash
-python -m src.cli.interface
+# From project root
+python -m src.cli.interface interactive
+
+# Or navigate to src directory first
+cd src
+python -m cli.interface interactive
 ```
-Access the full-featured command-line interface.
+Access the full-featured command-line interface with enhanced Amazon scraping capabilities.
 
 ## Installation Guide
 
@@ -66,7 +71,17 @@ Download ChromeDriver from [chromedriver.chromium.org](https://chromedriver.chro
 
 #### 4. Verify Installation
 ```bash
-python demo_main.py
+# Test basic functionality
+python main.py
+
+# Test interactive CLI
+python -m src.cli.interface
+
+# Test individual scrapers
+cd src
+python -c "from scrapers.static_scraper import StaticScraper; print('✅ Static scraper ready')"
+python -c "from scrapers.selenium_scraper import EbayScraper; print('✅ Selenium scraper ready')"
+python -c "from scrapers.scrapy_crawler.amazon_scraper import AmazonScrapyRunner; print('✅ Enhanced Amazon scraper ready')"
 ```
 
 ## Configuration
@@ -155,24 +170,34 @@ Found 124 MacBook listings
 - MacBook Pro 14-inch Space Gray: $1,999.00
 ```
 
-### Example 3: Framework Scraping (Amazon with Scrapy)
+### Example 3: Enhanced Framework Scraping (Amazon with Advanced Anti-Bot Protection)
 
 ```python
 from src.scrapers.scrapy_crawler.amazon_scraper import AmazonScrapyRunner
 
-# Initialize runner
+# Initialize runner with enhanced anti-bot protection
 runner = AmazonScrapyRunner()
 
-# Run with anti-bot protection
-results = runner.run_scraper(['laptop', 'gaming laptop'], max_pages=1)
+# Run with sophisticated anti-detection strategies:
+# - Advanced user agent rotation (7 realistic browser signatures)
+# - Variable delays (5-10 seconds) with human-like patterns  
+# - Multiple URL strategy attempts
+# - Enhanced session management with cookies
+# - Intelligent blocking detection and graceful handling
+results = runner.run_scraper(['laptop'], max_pages=1)
 
 print(f"Amazon results: {len(results)} products")
 if results:
     for product in results[:3]:
         print(f"- {product['name']}: {product['price']}")
+    print("✅ Successfully bypassed basic anti-bot measures!")
 else:
-    print("Amazon blocked access (normal behavior)")
+    print("🛡️ Amazon blocked access (demonstrates advanced protection)")
+    print("💡 This is normal - Amazon has enterprise-level defenses")
+    print("📋 Try eBay or Static scrapers for reliable demos")
 ```
+
+**Note**: The enhanced Amazon scraper now includes sophisticated anti-bot protection but Amazon's defenses are very advanced. Success rates vary, and blocking is normal behavior that demonstrates the framework's proper error handling.
 
 ### Example 4: Batch Processing Multiple Terms
 

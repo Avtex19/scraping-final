@@ -1,5 +1,23 @@
 # API Reference - Advanced Web Scraping Framework
 
+> **📢 Recent Updates**: The CLI has been moved to `src/cli/` and the Amazon scraper has been significantly enhanced with sophisticated anti-bot protection. See the [changelog](../README.md#recent-updates--improvements) for details.
+
+## Import Paths
+
+### Updated Import Paths (v2.0+)
+```python
+# CLI Components
+from src.cli.interface import ScrapingCLI
+from src.cli.commands import CommandProcessor
+
+# Enhanced Amazon Scraper
+from src.scrapers.scrapy_crawler.amazon_scraper import AmazonScrapyRunner
+
+# Other Scrapers (unchanged)
+from src.scrapers.static_scraper import StaticScraper
+from src.scrapers.selenium_scraper import EbayScraper
+```
+
 ## Table of Contents
 1. [Core Modules](#core-modules)
 2. [Scrapers](#scrapers)

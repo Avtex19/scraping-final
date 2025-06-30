@@ -15,13 +15,14 @@ The system follows a modular, layered architecture pattern that separates concer
 │                    Presentation Layer                       │
 │  ┌─────────────────┐    ┌─────────────────┐                │
 │  │   CLI Interface │    │  HTML Reports   │                │
-│  │   (interface.py)│    │  (reports.py)   │                │
+│  │(src/cli/interface)  │  (reports.py)   │                │
 │  └─────────────────┘    └─────────────────┘                │
 ├─────────────────────────────────────────────────────────────┤
 │                    Business Logic Layer                     │
 │  ┌─────────────────┐ ┌─────────────────┐ ┌───────────────┐ │
 │  │ Data Processing │ │    Analysis     │ │ Configuration │ │
-│  │ (processors.py) │ │(statistics.py)  │ │ (commands.py) │ │
+│  │ (processors.py) │ │(statistics.py)  │ │(src/cli/      │ │
+│  │                 │ │                 │ │commands.py)   │ │
 │  └─────────────────┘ └─────────────────┘ └───────────────┘ │
 ├─────────────────────────────────────────────────────────────┤
 │                    Data Access Layer                        │
@@ -32,8 +33,9 @@ The system follows a modular, layered architecture pattern that separates concer
 ├─────────────────────────────────────────────────────────────┤
 │                    Scraping Engine Layer                    │
 │  ┌─────────────────┐ ┌─────────────────┐ ┌───────────────┐ │
-│  │ Static Scraper  │ │Dynamic Scraper  │ │Framework      │ │
-│  │(BeautifulSoup4) │ │   (Selenium)    │ │  (Scrapy)     │ │
+│  │ Static Scraper  │ │Dynamic Scraper  │ │Enhanced       │ │
+│  │(BeautifulSoup4) │ │   (Selenium)    │ │Framework      │ │
+│  │                 │ │                 │ │(Scrapy+Config)│ │
 │  └─────────────────┘ └─────────────────┘ └───────────────┘ │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -191,11 +193,37 @@ scraping:
     retry_attempts: 3
 ```
 
+### Enhanced Scrapy Configuration
+
+The framework includes a sophisticated Scrapy configuration system:
+
+**Project Structure:**
+- `scrapy.cfg`: Project configuration pointing to `src.scrapers.scrapy_crawler.settings`
+- `src/scrapers/scrapy_crawler/settings.py`: Comprehensive Scrapy settings
+- Custom middlewares for advanced anti-bot protection
+
+**Key Scrapy Settings:**
+```python
+# Enhanced anti-bot configuration
+DOWNLOAD_DELAY = random.uniform(5, 10)  # Human-like delays
+AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_MAX_DELAY = 20
+
+# Custom middleware stack
+DOWNLOADER_MIDDLEWARES = {
+    'src.scrapers.scrapy_crawler.amazon_spider.RotateUserAgentMiddleware': 100,
+    'src.scrapers.scrapy_crawler.amazon_spider.DelayMiddleware': 200,
+    'src.scrapers.scrapy_crawler.amazon_spider.AmazonAntiBlockMiddleware': 300,
+}
+```
+
 Configuration precedence:
 1. Command-line arguments (highest)
 2. Environment variables
 3. YAML configuration files
-4. Default values (lowest)
+4. Scrapy settings.py
+5. Default values (lowest)
 
 ## Error Handling and Resilience
 

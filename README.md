@@ -47,10 +47,14 @@ The Advanced Web Scraping Framework is a comprehensive, enterprise-grade solutio
 
 ```bash
 # Quick demonstration of all features
-python demo_main.py
+python main.py
 
-# Interactive CLI interface
-python -m src.cli.interface
+# Interactive CLI interface (from project root)
+python -m src.cli.interface interactive
+
+# Or navigate to src directory first
+cd src
+python -m cli.interface interactive
 ```
 
 ## ✨ Key Features
@@ -61,10 +65,13 @@ python -m src.cli.interface
 - **Framework Scraping**: Scrapy with professional middleware pipeline
 
 ### 🛡️ **Advanced Anti-Bot Protection**
-- Multi-layer protection system with rate limiting and user-agent rotation
-- CAPTCHA detection and handling strategies
-- Adaptive retry mechanisms with exponential backoff
-- Request fingerprinting obfuscation
+- **Multi-layer protection system** with sophisticated rate limiting and user-agent rotation
+- **Real browser simulation** with complete header sets and session management
+- **Adaptive delay strategies** with human-like timing patterns (3-10 second variable delays)
+- **Multiple URL strategy attempts** to bypass basic blocking
+- **Enhanced CAPTCHA detection** and graceful blocking scenario handling
+- **Request fingerprinting obfuscation** with randomized browser signatures
+- **Intelligent retry mechanisms** with exponential backoff and jitter
 
 ### 📊 **Comprehensive Data Analysis**
 - Statistical analysis with outlier detection
@@ -117,9 +124,13 @@ python main.py
 ### First Run
 
 ```bash
+# Navigate to src directory for CLI
+cd src
 
 # Launch interactive CLI
-cd src
+python -m cli.interface interactive
+
+# Alternative: Run from project root
 python -m src.cli.interface interactive
 ```
 
@@ -205,7 +216,7 @@ Scraped 60 books
 </details>
 
 <details>
-<summary>🌐 Dynamic Scraping (Selenium)</summary>
+<summary>�� Dynamic Scraping (Selenium)</summary>
 
 ```python
 from src.scrapers.selenium_scraper import EbayScraper
@@ -356,7 +367,7 @@ scraping-final/
 │   │   └── scrapy_crawler/          # Scrapy framework
 |   |       ├── __init__.py          # Package initialization
 |   |       ├── amazon_scraper.py    # Main Scrapy framework
-|   |       └── amazon_spider.py     # Scrapy setup and initialization
+│   │   └── amazon_spider.py     # Scrapy setup and initialization
 │   ├── data/                        # Data management
 │   │   ├── __init__.py              # Package initialization
 │   │   ├── database.py              # SQLite operations
@@ -772,6 +783,62 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Documentation**: Comprehensive guides in the `docs/` directory
 - **Issues**: Report bugs and request features via GitHub Issues
 - **Discussions**: Join community discussions for questions and tips
+
+## 📋 Recent Updates & Improvements
+
+### Version 2.0 - Enhanced Anti-Bot Protection & Architecture Improvements
+
+#### 🚀 **Major Enhancements**
+- **Enhanced Amazon Scraper**: Sophisticated anti-bot protection with 7-layer defense system
+- **CLI Restructuring**: Moved CLI to `src/cli/` for better organization  
+- **Scrapy Configuration**: Added comprehensive `settings.py` and proper project structure
+- **Database Path Fixes**: Resolved all relative path issues for consistent database access
+- **Advanced User Agent Rotation**: 7 realistic browser signatures with complete header sets
+- **Intelligent Delay System**: Human-like timing patterns (3-10 second variable delays)
+
+#### 🛡️ **Anti-Bot Protection Improvements**
+- **Multiple URL Strategies**: Different Amazon URL patterns for bypass attempts
+- **Enhanced Session Management**: Cookie persistence and realistic browsing patterns  
+- **Adaptive Error Handling**: Graceful blocking detection with detailed logging
+- **Request Fingerprinting**: Randomized browser signatures and header rotation
+- **Smart Retry Logic**: Reduced aggressive retries to avoid triggering defenses
+
+#### 🔧 **Technical Improvements**
+- **Process Communication**: Fixed Scrapy data sharing between processes using temp files
+- **Configuration Management**: Enhanced YAML configuration with Scrapy integration
+- **Error Reporting**: Comprehensive traceback logging for debugging
+- **Code Organization**: Better separation of concerns and modular architecture
+- **Documentation**: Updated all guides to reflect new CLI location and features
+
+#### 📈 **Performance & Reliability**
+- **Database Consistency**: Fixed data saving issues in Amazon scraper
+- **Memory Management**: Improved cleanup of temporary files and resources
+- **Process Safety**: Better handling of multiprocessing scenarios
+- **Logging Enhancement**: More detailed progress tracking and error reporting
+
+## 🎯 Migration Guide
+
+If upgrading from a previous version:
+
+1. **Update CLI Usage**:
+   ```bash
+   # Old way
+   python cli.py
+   
+   # New way
+   python -m src.cli.interface interactive
+   ```
+
+2. **Import Path Changes**:
+   ```python
+   # Old imports
+   from cli.interface import ScrapingCLI
+   
+   # New imports  
+   from src.cli.interface import ScrapingCLI
+   ```
+
+3. **Configuration**: No changes needed - existing YAML configs are compatible
 
 ---
 
