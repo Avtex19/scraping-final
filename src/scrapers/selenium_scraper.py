@@ -20,7 +20,7 @@ class EbayScraper:
     A class-based eBay scraper using Selenium WebDriver.
     """
 
-    def __init__(self, chromedriver_path=None, headless=True, timeout=10, log_file='logs/ebay_scraper.log'):
+    def __init__(self, chromedriver_path=None, headless=False, timeout=10, log_file='logs/ebay_scraper.log'):
         """
         Initialize the eBay scraper.
 
@@ -55,18 +55,19 @@ class EbayScraper:
         self.logger.info(" WebDriver initialized.")
 
     def _extract_item_data(self, item, page_num):
+        name = None
         try:
-            name_elem = item.find_element(By.CSS_SELECTOR, 'h3.s-item__title')
-            name = name_elem.text.strip()
-            if name in [None, "", "New Listing"]:
+            title_elem = item.find_element(By.CSS_SELECTOR, 'div.s-item__title span[role="heading"]')
+            name = title_elem.text.strip()
+        except NoSuchElementException:
+            try:
+                title_div = item.find_element(By.CSS_SELECTOR, 'div.s-item__title')
+                name = title_div.text.strip()
+            except NoSuchElementException:
                 name = None
-        except NoSuchElementException:
-            name = None
 
-        try:
-            price = item.find_element(By.CSS_SELECTOR, 'span.s-item__price').text.strip()
-        except NoSuchElementException:
-            price = None
+        if not name or name in ["New Listing", "Shop on eBay"]:
+            return None
 
         try:
             link = item.find_element(By.CSS_SELECTOR, 'a.s-item__link').get_attribute('href')
@@ -74,9 +75,17 @@ class EbayScraper:
             link = None
 
         try:
+            price = item.find_element(By.CSS_SELECTOR, 'span.s-item__price').text.strip()
+        except NoSuchElementException:
+            price = None
+
+        try:
             availability = item.find_element(By.CSS_SELECTOR, 'span.SECONDARY_INFO').text.strip()
         except NoSuchElementException:
             availability = "Unknown"
+
+        if not link or not name:
+            return None
 
         return {
             'name': name,
@@ -103,32 +112,35 @@ class EbayScraper:
 
         try:
             self.driver.get(url)
-            self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.srp-results')))
+            self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#srp-river-results li.s-item')))
+            with open(f'logs/ebay_debug_page_{page_num}.html', 'w', encoding='utf-8') as f:
+                f.write(self.driver.page_source)
+            print(f"[DEBUG] Saved page source to logs/ebay_debug_page_{page_num}.html")
         except TimeoutException:
             self.logger.warning(f"⏰ Timeout on page {page_num}, skipping...")
             return []
 
-        items = self.driver.find_elements(By.CSS_SELECTOR, 'li.s-item')
+        results_container = self.driver.find_element(By.CSS_SELECTOR, '#srp-river-results')
+        items = results_container.find_elements(By.CSS_SELECTOR, 'li.s-item')
         self.logger.debug(f"Found {len(items)} <li.s-item> elements on page {page_num}")
 
         if not items:
             print(f"️ No items found on page {page_num}")
             self.logger.warning(f"️ No items found on page {page_num}")
+            print("[DEBUG] Dumping HTML of all li.s-item elements:")
+            for item in results_container.find_elements(By.CSS_SELECTOR, 'li.s-item'):
+                print(item.get_attribute('outerHTML')[:500])
             return []
 
         results = []
         for item in items:
             item_data = self._extract_item_data(item, page_num)
-            if item_data['link']:  # be flexible with name
-                if not item_data['name']:
-                    item_data['name'] = "Untitled"
+            if item_data:
                 results.append(item_data)
 
         print(f" Extracted {len(results)} items from page {page_num}")
         self.logger.info(f" Extracted {len(results)} valid items from page {page_num}")
         return results
-
-
 
     def scrape(self, search_term, max_pages=3, delay_between_pages=2):
         if not self.driver:
@@ -149,10 +161,8 @@ class EbayScraper:
 
         self.logger.info(f" Finished scraping '{search_term}'. Total items: {len(results)}")
 
-        # Ensure logs dir exists (optional)
         os.makedirs('logs', exist_ok=True)
 
-        # Save results as JSON
         json_path = f'logs/ebay_{search_term.replace(" ", "_")}_results.json'
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
