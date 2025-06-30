@@ -73,7 +73,7 @@ def extract_data_static(item, base_url: str, selectors: dict) -> Dict[str, Any]:
 
 
 class StaticScraper(BaseScraper):
-    def __init__(self, config: Dict[str, Any], log_file='logs/static_scraper.log'):
+    def __init__(self, config: Dict[str, Any], log_file='../logs/static_scraper.log'):
         self.config = config
         self.logger = setup_logger(__name__, log_file=log_file)
         # Delay range for requests (min, max) seconds
@@ -96,12 +96,12 @@ class StaticScraper(BaseScraper):
 
         scraped_data = [item for sublist in results for item in sublist if item]
 
-        self.logger.info(f" Finished scraping. Total items scraped: {len(scraped_data)}")
+        self.logger.info(f"✅ Finished scraping. Total items scraped: {len(scraped_data)}")
 
-        os.makedirs('logs', exist_ok=True)
-        json_path = f"logs/{self.config.get('name', 'static_scrape').replace(' ', '_').lower()}_results.json"
+        os.makedirs('../logs', exist_ok=True)
+        json_path = f"../logs/{self.config.get('name', 'static_scrape').replace(' ', '_').lower()}_results.json"
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(scraped_data, f, ensure_ascii=False, indent=2)
-        self.logger.info(f" Saved scraped data to {json_path}")
+        self.logger.info(f"💾 Saved scraped data to {json_path}")
 
         return scraped_data

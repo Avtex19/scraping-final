@@ -32,7 +32,12 @@ class CommandProcessor:
         self.logger = logging.getLogger(__name__)
         self.config_path = config_path or "../config/settings.yaml"
         self.config = self._load_configuration()
-        self.db = Database()
+        
+        # Calculate path to project root for database
+        project_root = os.path.join(os.path.dirname(__file__), '..', '..')
+        db_path = os.path.join(project_root, 'scraped_data.db')
+        
+        self.db = Database(db_path)
         
     def _load_configuration(self) -> Dict[str, Any]:
         """Load configuration from YAML file."""
@@ -216,7 +221,10 @@ class CommandProcessor:
         click.echo("\n📊 Auto-generating reports...")
         
         try:
-            report_generator = ReportGenerator()
+            # Calculate path to project root for database
+            project_root = os.path.join(os.path.dirname(__file__), '..', '..')
+            db_path = os.path.join(project_root, 'scraped_data.db')
+            report_generator = ReportGenerator(db_path)
             
             # Generate comprehensive report
             if self.config['analysis']['chart_generation']:
@@ -336,7 +344,7 @@ class CommandProcessor:
             click.echo(click.style("✅ Configuration is valid", fg='green'))
             return True
     
-    def export_configuration_template(self, output_path: str = "config/template.yaml"):
+    def export_configuration_template(self, output_path: str = "../config/template.yaml"):
         """Export a configuration template."""
         template = self._create_default_config()
         
@@ -407,10 +415,10 @@ class CommandProcessor:
     def _check_output_directories(self) -> bool:
         """Check if output directories exist and are writable."""
         directories = [
-            'data_output/raw',
-            'data_output/processed', 
-            'data_output/reports',
-            'logs'
+            '../data_output/raw',
+            '../data_output/processed', 
+            '../data_output/reports',
+            '../logs'
         ]
         
         for directory in directories:

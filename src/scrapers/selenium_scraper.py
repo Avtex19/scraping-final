@@ -20,7 +20,7 @@ class EbayScraper:
     A class-based eBay scraper using Selenium WebDriver.
     """
 
-    def __init__(self, chromedriver_path=None, headless=False, timeout=10, log_file='logs/ebay_scraper.log'):
+    def __init__(self, chromedriver_path=None, headless=False, timeout=10, log_file='../logs/ebay_scraper.log'):
         """
         Initialize the eBay scraper.
 
@@ -113,9 +113,9 @@ class EbayScraper:
         try:
             self.driver.get(url)
             self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#srp-river-results li.s-item')))
-            with open(f'logs/ebay_debug_page_{page_num}.html', 'w', encoding='utf-8') as f:
+            with open(f'../logs/ebay_debug_page_{page_num}.html', 'w', encoding='utf-8') as f:
                 f.write(self.driver.page_source)
-            print(f"[DEBUG] Saved page source to logs/ebay_debug_page_{page_num}.html")
+            print(f"[DEBUG] Saved page source to ../logs/ebay_debug_page_{page_num}.html")
         except TimeoutException:
             self.logger.warning(f"⏰ Timeout on page {page_num}, skipping...")
             return []
@@ -159,15 +159,15 @@ class EbayScraper:
         finally:
             self.close()
 
-        self.logger.info(f" Finished scraping '{search_term}'. Total items: {len(results)}")
+        self.logger.info(f"🎯 Finished scraping '{search_term}'. Total items: {len(results)}")
 
-        os.makedirs('logs', exist_ok=True)
+        os.makedirs('../logs', exist_ok=True)
 
-        json_path = f'logs/ebay_{search_term.replace(" ", "_")}_results.json'
+        json_path = f'../logs/ebay_{search_term.replace(" ", "_")}_results.json'
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
 
-        self.logger.info(f" Saved scraped data to {json_path}")
+        self.logger.info(f"💾 Saved scraped data to {json_path}")
 
         return results
 

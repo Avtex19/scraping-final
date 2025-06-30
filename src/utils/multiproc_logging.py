@@ -14,7 +14,7 @@ def setup_worker_logger(log_queue):
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 
-def start_logging_listener(log_queue, log_file='logs/multiprocessing.log'):
+def start_logging_listener(log_queue, log_file='../logs/multiprocessing.log'):
     """Start logging listener in main process."""
     formatter = logging.Formatter('%(asctime)s - %(processName)s - %(levelname)s - %(message)s')
 
