@@ -132,4 +132,9 @@ dmypy.json
 # Project specific
 *.db
 scraped_data.db
-chromedriver* 
+chromedriver*
+
+# Data output folders
+data_output/
+logs/
+!logs/.gitkeep 
