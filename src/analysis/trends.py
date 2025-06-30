@@ -75,7 +75,7 @@ class TrendAnalyzer:
         ]).reset_index()
         
         if len(daily_prices) > 1:
-            price_correlation = daily_prices['mean'].corr(range(len(daily_prices)))
+            price_correlation = daily_prices['mean'].corr(list(range(len(daily_prices))))
             
             trends['overall_trends'] = {
                 'total_days': len(daily_prices),
@@ -93,7 +93,7 @@ class TrendAnalyzer:
                 ]).reset_index()
                 
                 if len(source_daily) > 1:
-                    source_correlation = source_daily['mean'].corr(range(len(source_daily)))
+                    source_correlation = source_daily['mean'].corr(list(range(len(source_daily))))
                     
                     trends['trends_by_source'][source] = {
                         'days_tracked': len(source_daily),
