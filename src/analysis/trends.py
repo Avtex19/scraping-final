@@ -195,7 +195,7 @@ class TrendAnalyzer:
         
         return comparison
     
-    def generate_trend_visualizations(self, output_dir: str = "data_output/reports") -> List[str]:
+    def generate_trend_visualizations(self, output_dir: str = "../data_output/reports") -> List[str]:
         """
         Generate comprehensive trend visualizations.
         """
@@ -288,7 +288,7 @@ class TrendAnalyzer:
         
         return report
     
-    def export_trends(self, output_dir: str = "data_output/processed") -> str:
+    def export_trends(self, output_dir: str = "../data_output/processed") -> str:
         """Export trend analysis to JSON and Excel formats."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         

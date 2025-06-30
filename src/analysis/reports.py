@@ -29,7 +29,7 @@ class ReportGenerator:
         self.stats_analyzer = DataStatistics(db_path)
         self.trend_analyzer = TrendAnalyzer(db_path)
         
-    def generate_comprehensive_report(self, output_dir: str = "data_output/reports") -> str:
+    def generate_comprehensive_report(self, output_dir: str = "../data_output/reports") -> str:
         """Generate a comprehensive HTML report with all analyses."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
@@ -73,7 +73,7 @@ class ReportGenerator:
         data = self.stats_analyzer.data
         if data is None or data.empty:
             return charts
-        
+
         if 'price_numeric' in data.columns:
             plt.figure(figsize=(10, 6))
             prices = data['price_numeric'].dropna()
@@ -87,7 +87,9 @@ class ReportGenerator:
                 chart_path = Path(output_dir) / 'price_distribution.png'
                 plt.savefig(chart_path, dpi=300, bbox_inches='tight')
                 plt.close()
-                charts['price_distribution'] = str(chart_path)
+                # Convert to relative path for browser compatibility
+                relative_path = self._convert_to_relative_path(chart_path, output_dir)
+                charts['price_distribution'] = relative_path
         
         if 'search_term' in data.columns:
             source_stats = data.groupby('search_term').agg({
@@ -116,7 +118,9 @@ class ReportGenerator:
                 chart_path = Path(output_dir) / 'source_comparison.png'
                 plt.savefig(chart_path, dpi=300, bbox_inches='tight')
                 plt.close()
-                charts['source_comparison'] = str(chart_path)
+                # Convert to relative path for browser compatibility
+                relative_path = self._convert_to_relative_path(chart_path, output_dir)
+                charts['source_comparison'] = relative_path
         
         return charts
     
@@ -287,7 +291,7 @@ class ReportGenerator:
         template = Template(template_html)
         return template.render(**report_data)
     
-    def export_data_formats(self, output_dir: str = "data_output/processed") -> Dict[str, str]:
+    def export_data_formats(self, output_dir: str = "../data_output/processed") -> Dict[str, str]:
         """Export data in multiple formats (CSV, JSON, Excel)."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
@@ -320,7 +324,7 @@ class ReportGenerator:
         self.logger.info(f"Data exported in {len(exported_files)} formats")
         return exported_files
     
-    def generate_custom_report(self, config: Dict, output_dir: str = "data_output/reports") -> str:
+    def generate_custom_report(self, config: Dict, output_dir: str = "../data_output/reports") -> str:
         """Generate a custom report based on user configuration."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -524,7 +528,7 @@ class ReportGenerator:
         template = Template(template_html)
         return template.render(**report_data)
     
-    def generate_statistical_report(self, output_dir: str = "data_output/reports") -> str:
+    def generate_statistical_report(self, output_dir: str = "../data_output/reports") -> str:
         """Generate a focused statistical analysis report."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -560,7 +564,7 @@ class ReportGenerator:
         self.logger.info(f"✅ Statistical report generated: {report_file}")
         return str(report_file)
     
-    def generate_trend_report(self, output_dir: str = "data_output/reports") -> str:
+    def generate_trend_report(self, output_dir: str = "../data_output/reports") -> str:
         """Generate a focused trend analysis report."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -598,7 +602,7 @@ class ReportGenerator:
         self.logger.info(f"✅ Trend report generated: {report_file}")
         return str(report_file)
     
-    def export_charts(self, output_dir: str = "data_output/charts") -> str:
+    def export_charts(self, output_dir: str = "../data_output/charts") -> str:
         """Export all charts and visualizations to a dedicated directory."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')

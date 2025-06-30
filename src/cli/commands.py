@@ -30,7 +30,7 @@ class CommandProcessor:
     
     def __init__(self, config_path: Optional[str] = None):
         self.logger = logging.getLogger(__name__)
-        self.config_path = config_path or "config/settings.yaml"
+        self.config_path = config_path or "../config/settings.yaml"
         self.config = self._load_configuration()
         self.db = Database()
         

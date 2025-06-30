@@ -230,7 +230,7 @@ class DataStatistics:
             'avg_products_per_price': float(price_counts.mean())
         }
     
-    def export_statistics(self, output_dir: str = "data_output/processed", format: str = "json") -> str:
+    def export_statistics(self, output_dir: str = "../data_output/processed", format: str = "json") -> str:
         """Export statistical analysis to specified format."""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         

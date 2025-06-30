@@ -31,10 +31,14 @@ class ScrapingCLI:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.db = Database()
-        self.stats = DataStatistics()
-        self.trends = TrendAnalyzer()
-        self.reports = ReportGenerator()
+        # Calculate path to project root for database and output directories
+        project_root = os.path.join(os.path.dirname(__file__), '..', '..')
+        db_path = os.path.join(project_root, 'scraped_data.db')
+        
+        self.db = Database(db_path)
+        self.stats = DataStatistics(db_path)
+        self.trends = TrendAnalyzer(db_path)
+        self.reports = ReportGenerator(db_path)
         
     def display_banner(self):
         """Display application banner."""
@@ -779,6 +783,10 @@ class ScrapingCLI:
                 report_path = self.reports.generate_custom_report(config)
                 click.echo(click.style(f"✅ Custom report generated: {report_path}", fg='green'))
                 
+                if click.confirm("🌐 Open report in browser?"):
+                    import webbrowser
+                    webbrowser.open(f"file://{Path(report_path).absolute()}")
+                
             except Exception as e:
                 click.echo(click.style(f"❌ Custom report failed: {e}", fg='red'))
     
@@ -829,7 +837,7 @@ class ScrapingCLI:
                 return
             
             # Create output directory
-            output_dir = Path('data_output/exports')
+            output_dir = Path('../data_output/exports')
             output_dir.mkdir(parents=True, exist_ok=True)
             
             # Generate filename with timestamp
@@ -929,12 +937,12 @@ class ScrapingCLI:
             
             # Apply source filter
             if source_filter.lower() != 'all':
-                products = [p for p in products if p.get('source', '').lower() == source_filter.lower()]
+                products = [p for p in products if (p.get('source') or '').lower() == source_filter.lower()]
             
             # Apply date filter
             if date_filter and start_date and end_date:
                 # Simple date filtering (would need proper date parsing in production)
-                products = [p for p in products if start_date <= p.get('scrape_time', '')[:10] <= end_date]
+                products = [p for p in products if start_date <= (p.get('scrape_time') or '')[:10] <= end_date]
             
             # Apply field selection
             fields = [f.strip() for f in include_fields.split(',')]
@@ -944,7 +952,7 @@ class ScrapingCLI:
                 filtered_products.append(filtered_product)
             
             # Export in selected format
-            output_dir = Path('data_output/custom_exports')
+            output_dir = Path('../data_output/custom_exports')
             output_dir.mkdir(parents=True, exist_ok=True)
             
             if output_format == 'json':
@@ -1088,7 +1096,7 @@ class ScrapingCLI:
         
         try:
             import yaml
-            with open('config/settings.yaml', 'r') as f:
+            with open('../config/settings.yaml', 'r') as f:
                 config = yaml.safe_load(f)
             
             # Display key configuration sections
