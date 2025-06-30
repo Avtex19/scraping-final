@@ -2,6 +2,7 @@ import scrapy
 import json
 import re
 import time
+import random
 from scrapy.http import Request
 from scrapy.exceptions import IgnoreRequest
 from urllib.parse import urljoin
@@ -20,28 +21,77 @@ from src.data.database import Database
 
 
 class RotateUserAgentMiddleware:
-    """Middleware to rotate User-Agent headers"""
+    """Advanced middleware to rotate User-Agent headers with realistic patterns"""
     
     def __init__(self):
-        self.ua = UserAgent()
+        # Use a mix of popular browsers with recent versions
+        self.user_agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+        ]
     
     def process_request(self, request, spider):
-        request.headers['User-Agent'] = self.ua.random
+        # Rotate user agent for each request
+        request.headers['User-Agent'] = random.choice(self.user_agents)
+        
+        # Add realistic browser headers
+        request.headers.update({
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': random.choice([
+                'en-US,en;q=0.9',
+                'en-US,en;q=0.8,es;q=0.7',
+                'en-GB,en;q=0.9',
+            ]),
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Cache-Control': 'max-age=0',
+        })
         return None
 
 
 class AmazonAntiBlockMiddleware:
-    """Middleware to handle Amazon's anti-bot measures"""
+    """Enhanced middleware to handle Amazon's anti-bot measures"""
     
     def process_response(self, request, response, spider):
         # Check for common Amazon blocking patterns
-        if any(pattern in response.text.lower() for pattern in [
-            'captcha', 'robot', 'automated', 'blocked', 'unusual traffic'
-        ]):
+        blocking_patterns = [
+            'captcha', 'robot', 'automated', 'blocked', 'unusual traffic',
+            'request blocked', 'access denied', 'temporarily blocked'
+        ]
+        
+        response_text_lower = response.text.lower()
+        if any(pattern in response_text_lower for pattern in blocking_patterns):
             spider.logger.warning(f"🛡️ Potential blocking detected on {request.url}")
-            # Don't retry automatically, just log
+            
+        # Check for successful product page indicators
+        if '[data-component-type="s-search-result"]' in response.text:
+            spider.logger.debug(f"✅ Valid product page detected")
+        elif response.status == 200:
+            spider.logger.warning(f"⚠️ Page loaded but no products found - possible blocking")
             
         return response
+
+
+class DelayMiddleware:
+    """Middleware to add realistic, variable delays between requests"""
+    
+    def process_request(self, request, spider):
+        # Add random delay between 3-8 seconds to mimic human behavior
+        delay = random.uniform(3, 8)
+        spider.logger.debug(f"⏰ Adding {delay:.2f}s delay before request")
+        time.sleep(delay)
+        return None
 
 
 # Global variable to store scraped items (simple approach)
@@ -81,22 +131,28 @@ class AmazonProductSpider(scrapy.Spider):
     allowed_domains = ['amazon.com']
     
     custom_settings = {
-        'DOWNLOAD_DELAY': 2,
+        'DOWNLOAD_DELAY': random.uniform(4, 7),  # More realistic delay
         'RANDOMIZE_DOWNLOAD_DELAY': True,
         'CONCURRENT_REQUESTS': 1,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 1,
-        'RETRY_TIMES': 3,
+        'RETRY_TIMES': 2,  # Reduced retries to avoid detection
         'RETRY_HTTP_CODES': [500, 502, 503, 504, 408, 429, 403],
-        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
         'AUTOTHROTTLE_ENABLED': True,
-        'AUTOTHROTTLE_START_DELAY': 1,
-        'AUTOTHROTTLE_MAX_DELAY': 10,
-        'AUTOTHROTTLE_DEBUG': True,
-        'DOWNLOAD_TIMEOUT': 30,
+        'AUTOTHROTTLE_START_DELAY': 5,  # Start with longer delay
+        'AUTOTHROTTLE_MAX_DELAY': 15,   # Allow longer delays
+        'AUTOTHROTTLE_TARGET_CONCURRENCY': 0.5,
+        'DOWNLOAD_TIMEOUT': 45,  # Longer timeout
         'LOG_LEVEL': 'WARNING',
+        'DOWNLOADER_MIDDLEWARES': {
+            'src.scrapers.scrapy_crawler.amazon_spider.RotateUserAgentMiddleware': 100,
+            'src.scrapers.scrapy_crawler.amazon_spider.DelayMiddleware': 200,
+            'src.scrapers.scrapy_crawler.amazon_spider.AmazonAntiBlockMiddleware': 300,
+        },
         'ITEM_PIPELINES': {
             'src.scrapers.scrapy_crawler.amazon_spider.CollectorPipeline': 300,
-        }
+        },
+        'COOKIES_ENABLED': True,
+        'ROBOTSTXT_OBEY': False,  # Disable robots.txt for educational purposes
     }
     
     def __init__(self, search_terms=None, max_pages=1, job_id=None, *args, **kwargs):
@@ -104,136 +160,153 @@ class AmazonProductSpider(scrapy.Spider):
         self.search_terms = search_terms or ['laptop']
         self.max_pages = max_pages
         self.job_id = job_id
-        self.custom_logger = setup_logger(f"{self.name}_logger", log_file='logs/amazon_scraper.log')
+        self.custom_logger = setup_logger(f"{self.name}_logger", log_file='../logs/amazon_scraper.log')
         # Clear global items at start
         global SCRAPED_ITEMS
         SCRAPED_ITEMS = []
     
     def start_requests(self):
-        """Generate initial requests for Amazon search"""
-        # Use the search URL that works (from test script)
-        url = "https://www.amazon.com/s?k=laptop"
-        
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Cache-Control': 'max-age=0',
-        }
-        
+        """Generate initial requests for Amazon search with multiple strategies"""
         self.custom_logger.info(f"🚀 Starting Amazon scraper for search")
         
-        yield scrapy.Request(
-            url=url,
-            headers=headers,
-            callback=self.parse,
-            meta={'search_term': 'laptop', 'page': 1}
-        )
+        for search_term in self.search_terms:
+            # Try multiple URL patterns to find what works
+            urls = [
+                f"https://www.amazon.com/s?k={search_term}&ref=sr_pg_1",
+                f"https://www.amazon.com/s?k={search_term}",
+                f"https://www.amazon.com/s?field-keywords={search_term}",
+            ]
+            
+            for i, url in enumerate(urls):
+                yield scrapy.Request(
+                    url=url,
+                    callback=self.parse,
+                    meta={
+                        'search_term': search_term, 
+                        'page': 1,
+                        'url_variant': i
+                    },
+                    dont_filter=True,  # Allow duplicate URLs for testing
+                    priority=10 - i  # Try different URL patterns with different priorities
+                )
     
     def parse(self, response):
-        """Parse Amazon search results"""
+        """Parse Amazon search results with enhanced extraction"""
         search_term = response.meta.get('search_term')
         page = response.meta.get('page', 1)
+        url_variant = response.meta.get('url_variant', 0)
         
-        self.custom_logger.info(f"📋 Parsing search results for '{search_term}' - Page {page}")
+        self.custom_logger.info(f"📋 Parsing search results for '{search_term}' - Page {page} (URL variant {url_variant})")
         self.custom_logger.info(f"📄 Response status: {response.status}")
         self.custom_logger.info(f"📏 Response length: {len(response.text)} characters")
         
-        # Extract products using the working selectors
-        products = self.extract_products(response, search_term)
+        # Extract products using multiple strategies
+        products = self.extract_products_enhanced(response, search_term)
         
-        # Store items in global variable
-        global SCRAPED_ITEMS
-        SCRAPED_ITEMS.extend(products)
-        
-        self.custom_logger.info(f"✅ Extracted {len(products)} valid products for '{search_term}'")
-        
-        # Yield items for Scrapy pipeline
-        for product in products:
-            yield product
+        if products:
+            # Store items in global variable
+            global SCRAPED_ITEMS
+            SCRAPED_ITEMS.extend(products)
+            
+            self.custom_logger.info(f"✅ Extracted {len(products)} valid products for '{search_term}'")
+            
+            # Yield items for Scrapy pipeline
+            for product in products:
+                yield product
+                
+            # Try to get next page if we have max_pages > 1
+            if page < self.max_pages:
+                next_page_url = self.get_next_page_url(response, search_term, page + 1)
+                if next_page_url:
+                    yield scrapy.Request(
+                        url=next_page_url,
+                        callback=self.parse,
+                        meta={'search_term': search_term, 'page': page + 1}
+                    )
+        else:
+            self.custom_logger.warning(f"⚠️ No products extracted from {response.url}")
     
-    def extract_products(self, response, search_term):
-        """Extract products using the working selectors from test script"""
+    def get_next_page_url(self, response, search_term, page_num):
+        """Generate next page URL"""
+        return f"https://www.amazon.com/s?k={search_term}&page={page_num}"
+    
+    def extract_products_enhanced(self, response, search_term):
+        """Enhanced product extraction with multiple selector strategies"""
         products = []
         
-        # Use the selector that worked in our test script
-        containers = response.css('[data-component-type="s-search-result"]')
-        self.custom_logger.info(f"🔍 Found {len(containers)} search result containers")
+        # Try multiple container selectors
+        container_selectors = [
+            '[data-component-type="s-search-result"]',
+            '.s-result-item[data-component-type="s-search-result"]',
+            '.s-result-item',
+            '.sg-col-inner .s-widget-container'
+        ]
         
-        for container in containers:
-            product = self.extract_single_product(container, response.url, search_term)
+        containers = []
+        for selector in container_selectors:
+            containers = response.css(selector)
+            if containers:
+                self.custom_logger.info(f"🔍 Found {len(containers)} containers using selector: {selector}")
+                break
+        
+        if not containers:
+            self.custom_logger.warning(f"❌ No product containers found with any selector")
+            return products
+        
+        for i, container in enumerate(containers):
+            if i >= 25:  # Limit to avoid overwhelming Amazon
+                break
+                
+            product = self.extract_single_product_enhanced(container, response.url, search_term)
             if product:
                 products.append(product)
         
         return products
     
-    def extract_single_product(self, container, page_url, search_term):
-        """Extract individual product data using exact selectors from Amazon HTML"""
+    def extract_single_product_enhanced(self, container, page_url, search_term):
+        """Enhanced single product extraction with multiple fallback strategies"""
         try:
-            # Use exact selectors from the provided HTML structure
+            # Enhanced title selectors
             title_selectors = [
                 '[data-cy="title-recipe"] h2 span::text',
                 '[data-cy="title-recipe"] span::text',
-                'h2 span::text'
+                'h2 a span::text',
+                'h2 span::text',
+                '.s-size-mini .s-color-base::text',
+                '.a-size-base-plus::text'
             ]
             
+            # Enhanced price selectors
             price_selectors = [
                 '[data-cy="price-recipe"] .a-price .a-offscreen::text',
                 '.a-price .a-offscreen::text',
                 '[data-cy="price-recipe"] .a-color-price::text',
-                '.a-price-whole::text'
+                '.a-price-whole::text',
+                '.a-color-price::text',
+                '.a-price-symbol + .a-price-whole::text'
             ]
             
+            # Enhanced link selectors
             link_selectors = [
                 '[data-cy="title-recipe"] a::attr(href)',
                 'h2 a::attr(href)',
-                '.a-link-normal::attr(href)'
+                '.a-link-normal::attr(href)',
+                'a.s-link-style::attr(href)'
             ]
             
-            rating_selectors = [
-                '[data-cy="reviews-block"] .a-icon-alt::text',
-                '.a-icon-alt::text'
-            ]
-            
-            # Extract title
-            title = None
-            for selector in title_selectors:
-                title = container.css(selector).get()
-                if title and title.strip():
-                    title = title.strip()
-                    break
-            
-            # Extract price
-            price_text = None
-            for selector in price_selectors:
-                price_text = container.css(selector).get()
-                if price_text and price_text.strip():
-                    break
-            
-            # Extract link
-            link = None
-            for selector in link_selectors:
-                link = container.css(selector).get()
-                if link:
-                    break
+            # Extract with fallbacks
+            title = self.extract_with_fallbacks(container, title_selectors)
+            price_text = self.extract_with_fallbacks(container, price_selectors)
+            link = self.extract_with_fallbacks(container, link_selectors)
             
             # Extract rating
-            rating = None
-            for selector in rating_selectors:
-                rating_element = container.css(selector).get()
-                if rating_element and rating_element.strip():
-                    rating = rating_element.strip()
-                    break
+            rating = container.css('.a-icon-alt::text').get()
+            if rating:
+                rating = rating.strip()
             
-            # Only include products with valid name (price might not always be available)
-            if title:
-                # Parse price if available, otherwise set to None
+            # Only include products with valid name
+            if title and title.strip():
+                # Parse price if available
                 price = self.parse_price(price_text) if price_text else None
                 
                 # Make link absolute
@@ -243,7 +316,7 @@ class AmazonProductSpider(scrapy.Spider):
                 self.custom_logger.debug(f"✅ Extracted product: {title[:50]}...")
                 
                 return {
-                    'name': title,
+                    'name': title.strip(),
                     'price': price,
                     'link': link,
                     'search_term': search_term,
@@ -260,13 +333,25 @@ class AmazonProductSpider(scrapy.Spider):
         
         return None
     
+    def extract_with_fallbacks(self, container, selectors):
+        """Try multiple selectors until one works"""
+        for selector in selectors:
+            result = container.css(selector).get()
+            if result and result.strip():
+                return result.strip()
+        return None
+    
     def parse_price(self, price_str):
-        """Parse price string to float"""
+        """Enhanced price parsing"""
         if not price_str:
             return None
         try:
-            # Remove currency symbols and commas
+            # Remove currency symbols and commas, keep numbers and decimals
             clean_price = re.sub(r'[^\d.]', '', price_str)
-            return float(clean_price) if clean_price else None
+            if clean_price and '.' in clean_price:
+                return float(clean_price)
+            elif clean_price:
+                return float(clean_price)
+            return None
         except (ValueError, TypeError):
             return None 
