@@ -75,14 +75,20 @@ class TrendAnalyzer:
         ]).reset_index()
         
         if len(daily_prices) > 1:
-            price_correlation = daily_prices['mean'].corr(list(range(len(daily_prices))))
+            price_correlation = daily_prices['mean'].corr(pd.Series(range(len(daily_prices))))
+            price_correlation = 0.0 if pd.isna(price_correlation) else price_correlation
             
             trends['overall_trends'] = {
                 'total_days': len(daily_prices),
                 'avg_daily_products': float(daily_prices['count'].mean()),
                 'price_trend_correlation': float(price_correlation),
                 'trend_direction': 'increasing' if price_correlation > 0.1 else 'decreasing' if price_correlation < -0.1 else 'stable',
-                'daily_averages': daily_prices.to_dict('records')
+                'daily_averages': {
+                    'dates': [str(x) for x in daily_prices['scrape_date'].astype(str).tolist() if pd.notna(x)],
+                    'counts': [int(x) for x in daily_prices['count'].tolist() if pd.notna(x)],
+                    'means': [float(x) for x in daily_prices['mean'].tolist() if pd.notna(x)],
+                    'medians': [float(x) for x in daily_prices['median'].tolist() if pd.notna(x)]
+                }
             }
         
         for source in self.data['search_term'].unique():
@@ -93,7 +99,8 @@ class TrendAnalyzer:
                 ]).reset_index()
                 
                 if len(source_daily) > 1:
-                    source_correlation = source_daily['mean'].corr(list(range(len(source_daily))))
+                    source_correlation = source_daily['mean'].corr(pd.Series(range(len(source_daily))))
+                    source_correlation = 0.0 if pd.isna(source_correlation) else source_correlation
                     
                     trends['trends_by_source'][source] = {
                         'days_tracked': len(source_daily),
@@ -108,9 +115,13 @@ class TrendAnalyzer:
         ]).reset_index()
         
         trends['temporal_patterns'] = {
-            'hourly_activity': hourly_patterns.to_dict('records'),
-            'peak_scraping_hour': int(hourly_patterns.loc[hourly_patterns['count'].idxmax()]['scrape_hour']),
-            'price_variation_by_hour': float(hourly_patterns['mean'].std())
+            'hourly_activity': {
+                'hours': [int(x) for x in hourly_patterns['scrape_hour'].tolist() if pd.notna(x)],
+                'counts': [int(x) for x in hourly_patterns['count'].tolist() if pd.notna(x)],
+                'means': [float(x) for x in hourly_patterns['mean'].tolist() if pd.notna(x)]
+            },
+            'peak_scraping_hour': int(hourly_patterns.loc[hourly_patterns['count'].idxmax()]['scrape_hour']) if len(hourly_patterns) > 0 else 0,
+            'price_variation_by_hour': float(hourly_patterns['mean'].std()) if len(hourly_patterns) > 0 else 0.0
         }
         
         return trends

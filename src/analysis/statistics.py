@@ -67,20 +67,20 @@ class DataStatistics:
         quality_report = {
             'total_records': total_records,
             'completeness': {
-                'name_complete': (self.data['name'].notna().sum() / total_records * 100),
-                'price_complete': (self.data['price_numeric'].notna().sum() / total_records * 100),
-                'link_complete': (self.data['link'].notna().sum() / total_records * 100),
-                'availability_complete': (self.data['availability'].notna().sum() / total_records * 100)
+                'name_complete': float(self.data['name'].notna().sum() / total_records * 100),
+                'price_complete': float(self.data['price_numeric'].notna().sum() / total_records * 100),
+                'link_complete': float(self.data['link'].notna().sum() / total_records * 100),
+                'availability_complete': float(self.data['availability'].notna().sum() / total_records * 100)
             },
             'validity': {
-                'valid_prices': (self.data['price_numeric'] > 0).sum(),
-                'invalid_prices': (self.data['price_numeric'] <= 0).sum(),
-                'missing_prices': self.data['price_numeric'].isna().sum(),
-                'valid_links': self.data['link'].str.startswith('http', na=False).sum(),
-                'duplicate_products': self.data.duplicated(subset=['name', 'search_term']).sum()
+                'valid_prices': int((self.data['price_numeric'] > 0).sum()),
+                'invalid_prices': int((self.data['price_numeric'] <= 0).sum()),
+                'missing_prices': int(self.data['price_numeric'].isna().sum()),
+                'valid_links': int(self.data['link'].str.startswith('http', na=False).sum()),
+                'duplicate_products': int(self.data.duplicated(subset=['name', 'search_term']).sum())
             },
             'consistency': {
-                'sources': self.data['search_term'].value_counts().to_dict(),
+                'sources': {str(k): int(v) for k, v in self.data['search_term'].value_counts().to_dict().items()},
                 'price_ranges_by_source': {}
             }
         }
@@ -94,7 +94,7 @@ class DataStatistics:
                         'min': float(prices.min()),
                         'max': float(prices.max()),
                         'mean': float(prices.mean()),
-                        'count': len(prices)
+                        'count': int(len(prices))
                     }
         
         return quality_report
@@ -145,9 +145,10 @@ class DataStatistics:
                 }
         
         if len(prices) > 0:
+            hist_counts, hist_bins = np.histogram(prices, bins=10)
             summaries['price_distributions'] = {
-                'bins': np.histogram(prices, bins=10)[1].tolist(),
-                'counts': np.histogram(prices, bins=10)[0].tolist(),
+                'bins': [float(x) for x in hist_bins.tolist()],
+                'counts': [int(x) for x in hist_counts.tolist()],
                 'percentiles': {
                     f'p{p}': float(prices.quantile(p/100)) 
                     for p in [5, 10, 25, 50, 75, 90, 95]
@@ -158,9 +159,11 @@ class DataStatistics:
             self.data['scrape_hour'] = self.data['scrape_time'].dt.hour
             self.data['scrape_day'] = self.data['scrape_time'].dt.day_name()
             
+            hour_counts = self.data['scrape_hour'].value_counts()
+            day_counts = self.data['scrape_day'].value_counts()
             summaries['temporal_analysis'] = {
-                'scraping_by_hour': self.data['scrape_hour'].value_counts().to_dict(),
-                'scraping_by_day': self.data['scrape_day'].value_counts().to_dict(),
+                'scraping_by_hour': {str(k): int(v) for k, v in hour_counts.to_dict().items()},
+                'scraping_by_day': {str(k): int(v) for k, v in day_counts.to_dict().items()},
                 'date_range': {
                     'earliest': str(self.data['scrape_time'].min()),
                     'latest': str(self.data['scrape_time'].max())
@@ -189,9 +192,9 @@ class DataStatistics:
             outliers = prices[(prices < lower_bound) | (prices > upper_bound)]
             
             price_ranges = {
-                'budget': {'min': 0, 'max': prices.quantile(0.25), 'count': 0, 'percentage': 0},
-                'mid-range': {'min': prices.quantile(0.25), 'max': prices.quantile(0.75), 'count': 0, 'percentage': 0},
-                'premium': {'min': prices.quantile(0.75), 'max': prices.max(), 'count': 0, 'percentage': 0}
+                'budget': {'min': 0.0, 'max': float(prices.quantile(0.25)), 'count': 0, 'percentage': 0},
+                'mid-range': {'min': float(prices.quantile(0.25)), 'max': float(prices.quantile(0.75)), 'count': 0, 'percentage': 0},
+                'premium': {'min': float(prices.quantile(0.75)), 'max': float(prices.max()), 'count': 0, 'percentage': 0}
             }
             
             for range_name, range_info in price_ranges.items():
@@ -200,20 +203,20 @@ class DataStatistics:
                 price_ranges[range_name]['percentage'] = float(count / len(prices) * 100)
             
             analysis = {
-                'outliers': outliers.tolist(),
+                'outliers': [float(x) for x in outliers.tolist()],
                 'price_ranges': price_ranges,
                 'outlier_detection': {
                     'total_outliers': len(outliers),
-                    'outlier_percentage': len(outliers) / len(prices) * 100,
-                    'outlier_values': outliers.tolist(),
+                    'outlier_percentage': float(len(outliers) / len(prices) * 100),
+                    'outlier_values': [float(x) for x in outliers.tolist()],
                     'bounds': {
                         'lower': float(lower_bound),
                         'upper': float(upper_bound)
                     }
                 },
                 'price_patterns': {
-                    'ending_in_99': (prices.astype(str).str.endswith('.99')).sum(),
-                    'round_numbers': (prices % 1 == 0).sum(),
+                    'ending_in_99': int((prices.astype(str).str.endswith('.99')).sum()),
+                    'round_numbers': int((prices % 1 == 0).sum()),
                     'price_clustering': self._analyze_price_clustering(prices)
                 }
             }
@@ -225,7 +228,7 @@ class DataStatistics:
         price_counts = prices.value_counts()
         
         return {
-            'most_common_prices': price_counts.head(10).to_dict(),
+            'most_common_prices': {str(k): int(v) for k, v in price_counts.head(10).to_dict().items()},
             'unique_prices': len(price_counts),
             'avg_products_per_price': float(price_counts.mean())
         }
