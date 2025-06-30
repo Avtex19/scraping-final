@@ -1,5 +1,6 @@
 # Scrapy settings for Amazon scraping project
 import random
+import platform
 
 BOT_NAME = 'amazon_scraper'
 
@@ -34,9 +35,24 @@ RETRY_HTTP_CODES = [500, 502, 503, 504, 408, 429, 403, 404]
 # Enable and configure HTTP caching
 HTTPCACHE_ENABLED = False
 
+# macOS-specific SSL and network configurations
+system = platform.system().lower()
+if system == 'darwin':  # macOS
+    # SSL configuration for macOS
+    DOWNLOADER_CLIENT_TLS_METHOD = 'TLSv1.2'
+    # Force IPv4 (sometimes macOS IPv6 causes issues)
+    REACTOR_THREADPOOL_MAXSIZE = 20
+    # Increase timeout for macOS network stack
+    DOWNLOAD_TIMEOUT = 60
+    # Use macOS-compatible DNS settings
+    DNSCACHE_ENABLED = True
+    DNSCACHE_SIZE = 10000
+    DNS_TIMEOUT = 60
+
 # Configure middlewares
 DOWNLOADER_MIDDLEWARES = {
     'src.scrapers.scrapy_crawler.amazon_spider.RotateUserAgentMiddleware': 100,
+    'src.scrapers.scrapy_crawler.amazon_spider.MacOSCompatibilityMiddleware': 150,
     'src.scrapers.scrapy_crawler.amazon_spider.DelayMiddleware': 200,
     'src.scrapers.scrapy_crawler.amazon_spider.AmazonAntiBlockMiddleware': 300,
 }

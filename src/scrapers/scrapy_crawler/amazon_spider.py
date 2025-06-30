@@ -24,15 +24,29 @@ class RotateUserAgentMiddleware:
     """Advanced middleware to rotate User-Agent headers with realistic patterns"""
     
     def __init__(self):
-        # Use a mix of popular browsers with recent versions
+        # Use a mix of popular browsers with realistic distribution across platforms
+        # Prioritize macOS user agents for better compatibility on macOS systems
         self.user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
+            # macOS Safari (most common on macOS)
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
+            
+            # macOS Chrome (very common)
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            
+            # macOS Firefox
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/119.0',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/118.0',
+            
+            # Windows (for diversity)
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
+            
+            # Linux Chrome (improved representation)
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
         ]
     
     def process_request(self, request, spider):
@@ -79,6 +93,41 @@ class AmazonAntiBlockMiddleware:
             spider.logger.debug(f"✅ Valid product page detected")
         elif response.status == 200:
             spider.logger.warning(f"⚠️ Page loaded but no products found - possible blocking")
+            
+        return response
+
+
+class MacOSCompatibilityMiddleware:
+    """macOS-specific middleware to handle common networking issues"""
+    
+    def __init__(self):
+        import platform
+        self.is_macos = platform.system().lower() == 'darwin'
+        
+    def process_request(self, request, spider):
+        if self.is_macos:
+            # Add macOS-specific headers that work better with Amazon
+            request.headers.update({
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate',
+                'Connection': 'keep-alive',
+                'Cache-Control': 'max-age=0',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Sec-GPC': '1',  # Global Privacy Control (common on macOS)
+            })
+        return None
+    
+    def process_response(self, request, response, spider):
+        if self.is_macos and response.status in [403, 503]:
+            spider.logger.warning(f"🍎 macOS network issue detected: {response.status} on {request.url}")
+            spider.logger.info("💡 macOS troubleshooting tips:")
+            spider.logger.info("   1. Check if VPN/proxy is interfering")
+            spider.logger.info("   2. Try disabling IPv6: sudo networksetup -setv6off Wi-Fi")
+            spider.logger.info("   3. Clear DNS cache: sudo dscacheutil -flushcache")
+            spider.logger.info("   4. Check macOS firewall settings")
             
         return response
 
@@ -145,6 +194,7 @@ class AmazonProductSpider(scrapy.Spider):
         'LOG_LEVEL': 'WARNING',
         'DOWNLOADER_MIDDLEWARES': {
             'src.scrapers.scrapy_crawler.amazon_spider.RotateUserAgentMiddleware': 100,
+            'src.scrapers.scrapy_crawler.amazon_spider.MacOSCompatibilityMiddleware': 150,
             'src.scrapers.scrapy_crawler.amazon_spider.DelayMiddleware': 200,
             'src.scrapers.scrapy_crawler.amazon_spider.AmazonAntiBlockMiddleware': 300,
         },
